@@ -1,21 +1,20 @@
 "use strict";
-// Lista de emojis (necesitamos 8 parejas)
-const emojis = [
-    "🙉","🚀","🌈","🍉","⛔️","🏀","💵","🎁",
-    "💵","🎁","🏀","⛔️","🍉","🌈","🚀","🙉", 
-];
-
 // Elementos del DOM 
 const contadorIntentos = document.getElementById("intentos");
 const tablero = document.getElementById("tableroJuego");
 const botonReinicio = document.getElementById("botonReiniciar");
 const mensajeGanador = document.getElementById("mensajeGanador");
 
+// Lista de emojis (necesitamos 8 parejas)
+const emojis = [
+    "🙉","🚀","🌈","🍉","⛔️","🏀","💵","🎁",    
+];
+
 // Variables para el juego
-let intentos = 0;
+let cartas = [...emojis, ...emojis];
 let cartasGiradas = [];
-let bloquearClicks = false;
-let paresDescubiertos = 0;
+let intentos = 0;
+
 
 // Función para mezclar array 
 const mezclarCartas = (array) => {
