@@ -1,15 +1,29 @@
-<!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./css/style.css" />
         <title>Juego de Memoria con Emojis</title>
+        <link rel="stylesheet" href="/css/estilos.css" />
     </head>
     <body>
-        <h1>Pareja de Emojis</h1>
-        <p>Hola soy ismael</p>
 
-        <script src="./js/script.js"></script>
+        <h1>Parejas de Emoji</h1>
+
+        <section class="estadisticas">
+            Intentos: <span id="intentos">0</span>
+        </section>
+
+        <section class="contenedorJuego" id="tableroJuego"></section>
+
+        <button id="botonReiniciar">Reiniciar Juego</button>
+        <section
+            id="mensajeGanador"
+            class="ganador"
+            style="display: none"
+        ></section>
+
+        <script src="/js/juego.js"></script>
+
+
     </body>
 </html>
