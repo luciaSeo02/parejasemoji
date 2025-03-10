@@ -12,6 +12,9 @@ const emojis = ["🙉", "🚀", "🌈", "🍉", "⛔️", "🏀", "💵", "🎁"
 let cartas = [...emojis, ...emojis];
 let cartasGiradas = [];
 let intentos = 0;
+let firstCard = null;
+let secondCard = null;
+let matchedPairs = 0;
 
 // Función para mezclar array
 const mezclarCartas = (array) => {
@@ -35,4 +38,29 @@ function generarTablero() {
   });
 }
 
+// Función para voltear la carta
+function flipCard(carta) {
+  if (carta.classList.contains("flipped")) return;
+  carta.classList.add("flipped"); // Esto activa el giro
+}
+
+// Función que se ejecuta cuando se hace clic en una carta
+function handleCardClick(event) {
+  const clickedCard = event.target.closest(".carta"); // Seleccionamos la carta completa.
+
+  if (clickedCard.classList.contains("flipped")) return; // Si la carta ya está volteada, no hacer nada.
+
+  flipCard(clickedCard);
+
+  if (!firstCard) {
+    firstCard = clickedCard;
+  } else {
+    secondCard = clickedCard;
+    intentos++;
+    contadorIntentos.textContent = intentos;
+
+  }
+}
+
+mezclarCartas(cartas);
 generarTablero();
