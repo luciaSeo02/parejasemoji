@@ -1,27 +1,24 @@
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Juego de Memoria con Emojis</title>
-        <link rel="stylesheet" href="/css/style.css" />
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juego de Memoria con Emojis</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Parejas de Emoji</h1>
 
-        <div class="container">
-            <h1>Parejas de Emoji</h1>
-    
-            <section class="contenedorJuego" id="tableroJuego"></section>
-    
-            <div class="info">
-                <p>Tiempo: <span id="tiempo">60</span> segundos</p>
-                <p>Intentos: <span id="intentos">0</span></p>
-                <button id="botonReiniciar">Reiniciar juego</button>
-            </div>
-            <section id="mensajeGanador" class="ganador"></section>
-        </div>
+      <section class="contenedorJuego" id="tableroJuego"></section>
 
-        <script src="/js/script.js"></script>
+      <div class="info">
+        <p>Tiempo: <span id="tiempo">60</span> segundos</p>
+        <p>Intentos: <span id="intentos">0</span></p>
+        <button id="botonReiniciar">Reiniciar juego</button>
+      </div>
+      <section id="mensajeGanador" class="ganador"></section>
+    </div>
 
-
-    </body>
+    <script src="./js/script.js"></script>
+  </body>
 </html>
