@@ -7,19 +7,18 @@
     </head>
     <body>
 
-        <h1>Parejas de Emoji</h1>
-
-        <section class="estadisticas">
-            Intentos: <span id="intentos">0</span>
-        </section>
-
-        <section class="contenedorJuego" id="tableroJuego"></section>
-
-        <button id="botonReiniciar">Reiniciar Juego</button>
-        <section
-            id="mensajeGanador"
-            class="ganador"
-        ></section>
+        <div class="container">
+            <h1>Parejas de Emoji</h1>
+    
+            <section class="contenedorJuego" id="tableroJuego"></section>
+    
+            <div class="info">
+                <p>Tiempo: <span id="tiempo">60</span> segundos</p>
+                <p>Intentos: <span id="intentos">0</span></p>
+                <button id="botonReiniciar">Reiniciar juego</button>
+            </div>
+            <section id="mensajeGanador" class="ganador"></section>
+        </div>
 
         <script src="/js/script.js"></script>
 
