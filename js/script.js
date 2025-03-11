@@ -6,6 +6,20 @@ const contadorIntentos = document.getElementById("intentos");
 const botonReinicio = document.getElementById("botonReiniciar");
 const mensajeGanador = document.getElementById("mensajeGanador");
 
+const pantallaInicio = document.getElementById("pantallaInicio");
+const nombreInput = document.getElementById("nombreJugador");
+const btnIniciar = document.getElementById("btnIniciar");
+const containerJuego = document.querySelector(".container");
+
+btnIniciar.addEventListener("click", () => {
+    const nombre = nombreInput.value.trim();
+    if (nombre) {
+        pantallaInicio.style.display = "none"; // Ocultar la pantalla de inicio
+        containerJuego.style.display = "flex"; // Mostrar el juego
+    } else {
+        alert("Por favor, ingresa tu nombre para comenzar.");
+    }
+});
 //Sonidos
 const sonidoSeleccionCarta = new Audio("./audio/card01.mp3");
 const sonidoErrorCarta = new Audio("./audio/error01.mp3");
