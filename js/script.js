@@ -11,18 +11,7 @@ const nombreInput = document.getElementById("nombreJugador");
 const btnIniciar = document.getElementById("btnIniciar");
 const containerJuego = document.querySelector(".container");
 
-btnIniciar.addEventListener("click", () => {
-  const nombre = nombreInput.value.trim();
-  if (nombre) {
-    pantallaInicio.style.display = "none"; // Ocultar la pantalla de inicio
-    containerJuego.style.display = "flex"; // Mostrar el juego
-    iniciarJuego(); // Iniciar el juego al hacer clic
-  } else {
-    alert("Por favor, ingresa tu nombre para comenzar.");
-  }
-});
-
-// Sonidos
+//Sonidos
 const sonidoSeleccionCarta = new Audio("./audio/card01.mp3");
 const sonidoErrorCarta = new Audio("./audio/error01.mp3");
 const sonidoAciertoCarta = new Audio("./audio/matchedCards01.mp3");
@@ -53,9 +42,11 @@ function generarTablero() {
   tablero.innerHTML = ""; // Para empezar vacío
   cartas.forEach((emoji, indice) => {
     const carta = document.createElement("div");
-    carta.classList.add("carta");
-    carta.dataset.emoji = emoji; // Guardar el dato del emoji en la carta
-    carta.dataset.indice = indice; // Guardar el dato del índice emoji en el array
+    carta.classList.add("carta", "flipped");
+    carta.dataset.emoji = emoji; //guardar el dato del emoji en la carta
+    carta.dataset.indice = indice; //guardar el dato del indice emoji en el array
+
+    //Crear la cara back y front de la carta
 
     // Crear la cara back y front de la carta
     const frontFace = document.createElement("div");
@@ -74,7 +65,14 @@ function generarTablero() {
     tablero.appendChild(carta); // Añadir como hijo al tablero cada carta
   });
 
-  // Reiniciar variables
+  setTimeout(() => {
+    document.querySelectorAll(".carta").forEach((carta) => {
+      carta.classList.remove("flipped");
+      carta.querySelector(".front").textContent = "";
+    });
+  }, 3000);
+
+  //Reiniciar variables
   firstCard = null;
   secondCard = null;
   cartasGiradas = [];
@@ -196,7 +194,22 @@ botonReinicio.addEventListener("click", () => {
   reiniciarJuego();
 });
 
-// Inicialización del juego
-mezclarCartas(cartas);
-generarTablero();
+btnIniciar.addEventListener("click", () => {
+  const nombre = nombreInput.value.trim();
+  if (nombre) {
+    pantallaInicio.style.display = "none"; // Ocultar la pantalla de inicio
+    containerJuego.style.display = "flex"; // Mostrar el juego
 
+    mezclarCartas(cartas);
+    generarTablero();
+
+    setTimeout(() => {
+      document.querySelectorAll(".carta").forEach((carta) => {
+        carta.classList.remove("flipped");
+        carta.querySelector(".front").textContent = "";
+      });
+    }, 3000);
+  } else {
+    alert("Por favor, ingresa tu nombre para comenzar.");
+  }
+});
