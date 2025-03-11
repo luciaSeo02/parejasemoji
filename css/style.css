@@ -1,228 +1,263 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background-color: #000;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 20px;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
 }
 
 h1 {
-  font-family: "Poppins", sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 10px;
 }
 
 .container {
-  display: flex;
-  background: #222;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    display: flex;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .contenedorJuego {
-  display: grid;
-  grid-template-columns: repeat(4, 100px);
-  grid-template-rows: repeat(4, 100px);
-  gap: 10px;
-  background: #333;
-  padding: 15px;
-  border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 10px;
+    background: #333;
+    padding: 15px;
+    border-radius: 10px;
 }
 
 .carta {
-  width: 100px;
-  height: 100px;
-  background: #666;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  position: relative;
-  perspective: 1000px;
-  cursor: pointer;
-  border-radius: 5px;
+    width: 100px;
+    height: 100px;
+    background: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.carta.pareja {
+    pointer-events: none; 
 }
 
 .carta .cara {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  backface-visibility: hidden;
-  transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    transition: transform 0.5s ease;
 }
 
 .carta .front {
-  background: #444;
-  transform: rotateY(180deg);
-  font-size: 2rem;
+    background: #444;
+    transform: rotateY(180deg);
+    font-size: 2rem;
 }
 
 .carta .back {
-  background: #666;
-  transform: rotateY(0deg);
-  font-size: 4rem;
+    background: #666;
+    transform: rotateY(0deg);
+    font-size: 4rem;
 }
 
 .carta.flipped {
-  background: #444;
+    background: #444;
 }
 
 .carta.flipped .front {
-  transform: rotateY(0deg);
+    transform: rotateY(0deg);
 }
 
 .carta.flipped .back {
-  transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
 }
 
 .info {
-  margin-left: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .info p {
-  background: #333;
-  padding: 15px;
-  border-radius: 5px;
-  border: 1px solid white;
+    background: #333;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid white;
 }
 
 #botonReiniciar {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 #botonReiniciar:hover {
-  background-color: darkred;
+    background-color: darkred;
 }
 
 /* animaciones para las cartas */
 @keyframes latidoBrillo {
-  0% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.2);
-    filter: brightness(2);
-  }
-  100% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.2);
+        filter: brightness(2);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
 }
 
 .pareja {
-  animation: latidoBrillo 0.5s ease;
+    animation: latidoBrillo 0.5s ease;
 }
 
 @keyframes rebote {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .carta:active {
-  animation: rebote 0.3s ease-in-out;
+    animation: rebote 0.3s ease-in-out;
 }
 
 @keyframes temblor {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-  100% {
-    transform: translateX(5px);
-  }
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(5px);
+    }
 }
 
 .fallo {
-  animation: temblor 0.3s linear;
+    animation: temblor 0.3s linear;
 }
 
 #botonReiniciar:active {
-  transform: scale(0.9);
+    transform: scale(0.9);
 }
 
 .pantalla-inicio {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .pantalla-inicio input {
-  padding: 10px;
-  margin: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
 }
 
 .pantalla-inicio button {
-  background-color: rgb(252, 60, 2);
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 5px;
+    background-color: rgb(252, 60, 2);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
 }
 
 .pantalla-inicio button:hover {
-  background-color: rgb(211, 60, 60);
+    background-color: rgb(211, 60, 60);
 }
 
 .container {
-  display: none; /* Ocultar el juego hasta que inicie */
+    display: none;
+    position: relative;
+}
+
+#mensajeGanador {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+    z-index: 1000;
+    display: none;
+    border: 2px solid rgb(252, 60, 2);
+    box-shadow: 0 0 20px rgba(252, 60, 2, 0.3);
+    animation: pulso 1s infinite;
+    pointer-events: none;
+    opacity: 0.9; 
+    animation: pulso 1s infinite;
+}
+
+@keyframes pulso {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
 }
