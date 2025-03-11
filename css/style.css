@@ -19,7 +19,7 @@ body {
 
 h1 {
   font-family: "Poppins", sans-serif;
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 40px;
@@ -51,14 +51,48 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2em;
+  font-size: 2rem;
+  position: relative;
+  perspective: 1000px;
   cursor: pointer;
   border-radius: 5px;
-  transition: transform 0.3s;
+}
+
+.carta .cara {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  backface-visibility: hidden;
+  transition: transform 0.5s ease;
+}
+
+.carta .front {
+  background: #444;
+  transform: rotateY(180deg);
+  font-size: 2rem;
+}
+
+.carta .back {
+  background: #666;
+  transform: rotateY(0deg);
+  font-size: 4rem;
 }
 
 .carta.flipped {
   background: #444;
+}
+
+.carta.flipped .front {
+  transform: rotateY(0deg);
+}
+
+.carta.flipped .back {
+  transform: rotateY(-180deg);
 }
 
 .info {
@@ -80,7 +114,7 @@ h1 {
   color: white;
   border: none;
   padding: 12px 25px;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
@@ -88,4 +122,67 @@ h1 {
 
 #botonReiniciar:hover {
   background-color: darkred;
+}
+
+/* animaciones para las cartas */
+@keyframes latidoBrillo {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.2);
+    filter: brightness(2);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+.pareja {
+  animation: latidoBrillo 0.5s ease;
+}
+
+@keyframes rebote {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.carta:active {
+  animation: rebote 0.3s ease-in-out;
+}
+
+@keyframes temblor {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
+
+.fallo {
+  animation: temblor 0.3s linear;
+}
+
+#botonReiniciar:active {
+  transform: scale(0.9);
 }
