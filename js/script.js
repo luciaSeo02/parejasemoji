@@ -1,6 +1,6 @@
 "use strict";
 
-//Traer elementos de HTML
+// Traer elementos de HTML
 const tablero = document.getElementById("tableroJuego");
 const contadorIntentos = document.getElementById("intentos");
 const botonReinicio = document.getElementById("botonReiniciar");
@@ -11,15 +11,6 @@ const nombreInput = document.getElementById("nombreJugador");
 const btnIniciar = document.getElementById("btnIniciar");
 const containerJuego = document.querySelector(".container");
 
-btnIniciar.addEventListener("click", () => {
-    const nombre = nombreInput.value.trim();
-    if (nombre) {
-        pantallaInicio.style.display = "none"; // Ocultar la pantalla de inicio
-        containerJuego.style.display = "flex"; // Mostrar el juego
-    } else {
-        alert("Por favor, ingresa tu nombre para comenzar.");
-    }
-});
 //Sonidos
 const sonidoSeleccionCarta = new Audio("./audio/card01.mp3");
 const sonidoErrorCarta = new Audio("./audio/error01.mp3");
@@ -27,15 +18,16 @@ const sonidoAciertoCarta = new Audio("./audio/matchedCards01.mp3");
 const sonidoClick = new Audio("./audio/click01.mp3");
 const sonidoGanar = new Audio("./audio/win01.mp3");
 
-//Declaración variables
+// Declaración de variables
 const emojis = ["🙉", "🚀", "🌈", "🍉", "⛔️", "🏀", "💵", "🎁"];
-
 let cartas = [...emojis, ...emojis];
 let cartasGiradas = [];
 let intentos = 0;
 let firstCard = null;
 let secondCard = null;
 let paresDescubiertos = 0;
+let temporizador; // Variable para almacenar el temporizador
+let tiempoRestante = 60; // 60 segundos de tiempo para el juego
 
 // Función para mezclar array
 const mezclarCartas = (array) => {
@@ -46,17 +38,18 @@ const mezclarCartas = (array) => {
     return array;
 };
 
-//FUNCIÓN PARA GENERAR TABLERO
+// Función para generar tablero
 function generarTablero() {
-    tablero.innerHTML = ""; //para empezar vacío
+    tablero.innerHTML = ""; // Para empezar vacío
     cartas.forEach((emoji, indice) => {
         const carta = document.createElement("div");
-        carta.classList.add("carta");
+        carta.classList.add("carta", "flipped");
         carta.dataset.emoji = emoji; //guardar el dato del emoji en la carta
         carta.dataset.indice = indice; //guardar el dato del indice emoji en el array
 
         //Crear la cara back y front de la carta
 
+        // Crear la cara back y front de la carta
         const frontFace = document.createElement("div");
         frontFace.classList.add("cara", "front");
         frontFace.textContent = emoji;
@@ -69,16 +62,23 @@ function generarTablero() {
         carta.appendChild(frontFace);
         carta.appendChild(backFace);
 
-        carta.addEventListener("click", handleCardClick); //girar la carta cuando clickas llamando a la función
-        tablero.appendChild(carta); //añadir como hijo al tablero cada carta
+        carta.addEventListener("click", handleCardClick); // Girar la carta cuando se hace clic
+        tablero.appendChild(carta); // Añadir como hijo al tablero cada carta
     });
+
+    setTimeout(() => {
+        document.querySelectorAll(".carta").forEach((carta) => {
+            carta.classList.remove("flipped");
+            carta.querySelector(".front").textContent = "";
+        });
+    }, 3000);
+
     //Reiniciar variables
     firstCard = null;
     secondCard = null;
     cartasGiradas = [];
     intentos = 0;
     contadorIntentos.textContent = intentos;
-    
 }
 
 // Función para voltear la carta
@@ -118,6 +118,7 @@ function handleCardClick(event) {
     }
 }
 
+// Función para verificar si las cartas son iguales
 function verificarPareja() {
     if (cartasGiradas.length !== 2) return;
 
@@ -152,8 +153,13 @@ function verificarPareja() {
         carta1.classList.remove("flipped");
         carta2.classList.remove("flipped");
     }
+
+    // Verificar si todas las cartas están volteadas
     if (document.querySelectorAll(".carta.flipped ").length === cartas.length) {
-        setTimeout(() => sonidoGanar.play(), 1000);
+        setTimeout(() => {
+            sonidoGanar.play();
+        }, 1000);
+        clearInterval(temporizador); // Detener el temporizador
     }
     cartasGiradas = [];
     firstCard = null;
@@ -170,18 +176,61 @@ function verificarPareja() {
         }, 500);
     }
 }
+
+// Función para iniciar el juego
+function iniciarJuego() {
+    tiempoRestante = 60; // Reiniciar el tiempo
+    contadorIntentos.textContent = 0; // Reiniciar intentos
+    mensajeGanador.textContent = ""; // Limpiar mensaje de victoria
+    mezclarCartas(cartas);
+    generarTablero();
+    iniciarTemporizador(); // Iniciar temporizador
+}
+
+// Función para reiniciar el juego
 function reiniciarJuego() {
     paresDescubiertos = 0;
     mensajeGanador.style.display = "none";
     mensajeGanador.textContent = "";
-    mezclarCartas(cartas);
-    generarTablero();
+    sonidoClick.play();
+    clearInterval(temporizador); // Detener el temporizador
+    iniciarJuego(); // Reiniciar el juego
 }
 
+// Función de temporizador
+function iniciarTemporizador() {
+    const tiempoDisplay = document.getElementById("tiempo");
+    temporizador = setInterval(() => {
+        tiempoRestante--;
+        tiempoDisplay.textContent = tiempoRestante;
+        if (tiempoRestante <= 0) {
+            clearInterval(temporizador);
+            mensajeGanador.textContent = "¡Se acabó el tiempo! Has perdido.";
+        }
+    }, 1000);
+}
+
+// Evento de reiniciar juego
 botonReinicio.addEventListener("click", () => {
-    sonidoClick.play();
     reiniciarJuego();
 });
 
-mezclarCartas(cartas);
-generarTablero();
+btnIniciar.addEventListener("click", () => {
+    const nombre = nombreInput.value.trim();
+    if (nombre) {
+        pantallaInicio.style.display = "none"; // Ocultar la pantalla de inicio
+        containerJuego.style.display = "flex"; // Mostrar el juego
+
+        mezclarCartas(cartas);
+        generarTablero();
+
+        setTimeout(() => {
+            document.querySelectorAll(".carta").forEach((carta) => {
+                carta.classList.remove("flipped");
+                carta.querySelector(".front").textContent = "";
+            });
+        }, 3000);
+    } else {
+        alert("Por favor, ingresa tu nombre para comenzar.");
+    }
+});
