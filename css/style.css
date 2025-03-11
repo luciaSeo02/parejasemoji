@@ -56,6 +56,12 @@ h1 {
   perspective: 1000px;
   cursor: pointer;
   border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  transition: box-shadow 0.3s ease;
+}
+
+.carta:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra al pasar el mouse */
 }
 
 .carta .cara {
@@ -68,7 +74,7 @@ h1 {
   justify-content: center;
   border-radius: 5px;
   backface-visibility: hidden;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease-in-out;
 }
 
 .carta .front {
@@ -85,6 +91,7 @@ h1 {
 
 .carta.flipped {
   background: #444;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Agregar sombra sutil al voltear la carta */
 }
 
 .carta.flipped .front {
@@ -130,11 +137,11 @@ h1 {
     transform: scale(1);
     filter: brightness(1);
   }
-  50% {
-    transform: scale(1.2);
-    filter: brightness(2);
+  30% {
+    transform: scale(1.1);
+    filter: brightness(1.5);
   }
-  100% {
+  60% {
     transform: scale(1);
     filter: brightness(1);
   }
@@ -193,7 +200,7 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)); /* Fondo degradado */
   color: white;
   display: flex;
   flex-direction: column;
@@ -217,12 +224,37 @@ h1 {
   cursor: pointer;
   font-size: 18px;
   border-radius: 5px;
-}
+  animation: aparecer 1s ease-out;
+  }
+  
+  @keyframes aparecer {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
 
 .pantalla-inicio button:hover {
   background-color: rgb(211, 60, 60);
 }
 
 .container {
-  display: none; /* Ocultar el juego hasta que inicie */
+  display: none; 
+}
+
+@media (max-width: 600px) {
+  .contenedorJuego {
+    grid-template-columns: repeat(3, 80px); 
+    grid-template-rows: repeat(4, 80px);
+  }
+
+  .carta {
+    width: 80px;
+    height: 80px;
+  }
 }
