@@ -17,30 +17,30 @@ body {
   padding: 20px;
 }
 
-
 #dificultad {
   padding: 10px;
   margin: 10px;
   font-size: 1rem;
-  border-radius: 25px; 
+  border-radius: 25px;
   border: 2px solid rgb(252, 60, 2);
-  background: linear-gradient(135deg, #ff7e5f, #feb47b); 
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
   color: white;
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); 
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 #dificultad:hover {
-  background-color: rgb(252, 60, 2); 
-  border-color: white; 
-  transform: scale(1.05); 
+  background-color: rgb(252, 60, 2);
+  border-color: white;
+  transform: scale(1.05);
 }
 
 #dificultad option {
-  background-color: #444; 
-  color: white; 
-  padding: 10px; 
-  border-radius: 5px; 
+  background-color: #444;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .pantalla-inicio {
@@ -81,6 +81,36 @@ body {
 }
 .pantalla-inicio button:hover {
   background-color: rgb(211, 60, 60);
+}
+
+#menuModos {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#menuModos h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+#menuModos button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+#menuModos button:hover {
+  background-color: #0056b3;
+}
+
+#menuModos button:active {
+  transform: scale(0.95);
 }
 
 h1 {
@@ -204,7 +234,7 @@ h1 {
   min-width: 100px;
 }
 
-#botonReiniciar {
+button {
   background-color: red;
   color: white;
   border: none;
@@ -216,7 +246,7 @@ h1 {
   min-width: 100px;
 }
 
-#botonReiniciar:hover {
+button:hover {
   background-color: darkred;
 }
 
@@ -267,8 +297,10 @@ h1 {
   .carta .back {
     font-size: 2.5rem;
   }
-  #botonReiniciar {
-    margin-top: 15px;
+  #menuModos button {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
   }
 }
 

@@ -12,6 +12,10 @@ const btnIniciar = document.getElementById("btnIniciar");
 const containerJuego = document.querySelector(".container");
 const dificultadSelect = document.getElementById("dificultad"); // Selector de dificultad
 
+const btnClasico = document.getElementById("modoClasico");
+const btnInverso = document.getElementById("modoInverso");
+const btnAtras = document.getElementById("botonAtras");
+
 //Sonidos
 const sonidoSeleccionCarta = new Audio("./audio/card01.mp3");
 const sonidoErrorCarta = new Audio("./audio/error01.mp3");
@@ -34,6 +38,20 @@ const emojis = [
   "🍀",
   "❤️",
 ];
+const parejasOpuestas = [
+  ["🔥", "💧"],
+  ["🌞", "🌚"],
+  ["😀", "😡"],
+  ["👆", "👇"],
+  ["🎵", "🔇"],
+  ["🐇", "🐢"],
+  ["🔐", "🔓"],
+  ["🛸", "🌍"], //cambiar algunos si no se entiende
+  ["😇", "😈"],
+  ["🌋", "🗻"],
+  ["👴", "👶"],
+  ["✈", "🚢"],
+];
 let cartas = [];
 let cartasGiradas = [];
 let intentos = 0;
@@ -42,6 +60,8 @@ let secondCard = null;
 let paresDescubiertos = 0;
 let temporizador; // Variable para almacenar el temporizador
 let tiempoRestante = 60; // 60 segundos de tiempo para el juego
+let modoActual = "clasico"; //marcar el modo de juego
+let tiempoMostrar = 0;
 
 // Función para mezclar array
 const mezclarCartas = (array) => {
@@ -115,15 +135,12 @@ function flipCard(carta) {
 
 // Función que se ejecuta cuando se hace clic en una carta
 function handleCardClick(event) {
-  if (tablero.classList.contains("no-click")) {
-    return; // Si el tablero tiene la clase "no-click", no hacer nada
-  }
+  if (tablero.classList.contains("no-click")) return; // Si el tablero tiene la clase "no-click", no hacer nada
 
   const clickedCard = event.target.closest(".carta"); // Seleccionamos la carta completa.
 
   if (clickedCard.classList.contains("flipped") || secondCard) return; // Si la carta ya está volteada, no hacer nada.
-  const sonido = sonidoSeleccionCarta.cloneNode(true);
-  sonido.play();
+  sonidoSeleccionCarta.cloneNode(true).play();
   flipCard(clickedCard);
 
   if (!firstCard) {
@@ -141,7 +158,19 @@ function verificarPareja() {
 
   const [carta1, carta2] = cartasGiradas; //separar el array en dos variables
 
-  if (carta1.dataset.emoji === carta2.dataset.emoji) {
+  let esPareja = false;
+
+  if (modoActual === "inverso") {
+    esPareja = parejasOpuestas.some(
+      ([a, b]) =>
+        (carta1.dataset.emoji === a && carta2.dataset.emoji === b) ||
+        (carta1.dataset.emoji === b && carta2.dataset.emoji === a)
+    );
+  } else {
+    esPareja = carta1.dataset.emoji === carta2.dataset.emoji;
+  }
+
+  if (esPareja) {
     paresDescubiertos++;
     sonidoAciertoCarta.play();
     carta1.classList.add("pareja");
@@ -184,7 +213,6 @@ function verificarPareja() {
   cartasGiradas = [];
   firstCard = null;
   secondCard = null;
-
 }
 
 // Función para iniciar el juego
@@ -196,24 +224,51 @@ function iniciarJuego() {
   establecerDificultad(dificultad); // Establecer la dificultad
   mezclarCartas(cartas);
   generarTablero();
-  iniciarTemporizador(); // Iniciar temporizador
 }
 
 // Función para establecer la dificultad
 function establecerDificultad(dificultad) {
-  switch (dificultad) {
-    case "easy":
-      cartas = [...emojis.slice(0, 4), ...emojis.slice(0, 4)];
-      tiempoRestante = 30;
-      break;
-    case "medium":
-      cartas = [...emojis.slice(0, 8), ...emojis.slice(0, 8)];
-      tiempoRestante = 60;
-      break;
-    case "hard":
-      cartas = [...emojis.slice(0, 12), ...emojis.slice(0, 12)];
-      tiempoRestante = 90;
-      break;
+  if (modoActual === "clasico") {
+    tiempoMostrar = 3000;
+  } else if (modoActual === "inverso") {
+    tiempoMostrar = 5000;
+  } else {
+    tiempoMostrar = 0;
+  }
+  if (modoActual === "clasico") {
+    switch (dificultad) {
+      case "easy":
+        cartas = [...emojis.slice(0, 4), ...emojis.slice(0, 4)];
+        tiempoRestante = 30;
+        tiempoMostrar -= 2000;
+        break;
+      case "medium":
+        cartas = [...emojis.slice(0, 8), ...emojis.slice(0, 8)];
+        tiempoRestante = 60;
+        break;
+      case "hard":
+        cartas = [...emojis.slice(0, 12), ...emojis.slice(0, 12)];
+        tiempoRestante = 90;
+        tiempoMostrar += 2000;
+        break;
+    }
+  } else if (modoActual === "inverso") {
+    switch (dificultad) {
+      case "easy":
+        cartas = [...parejasOpuestas.slice(0, 4).flat()];
+        tiempoRestante = 30;
+        tiempoMostrar -= 2000;
+        break;
+      case "medium":
+        cartas = [...parejasOpuestas.slice(0, 8).flat()];
+        tiempoRestante = 60;
+        break;
+      case "hard":
+        cartas = [...parejasOpuestas.slice(0, 12).flat()];
+        tiempoRestante = 90;
+        tiempoMostrar += 2000;
+        break;
+    }
   }
 }
 
@@ -225,6 +280,7 @@ function reiniciarJuego() {
   sonidoClick.play();
   clearInterval(temporizador); // Detener el temporizador
   iniciarJuego(); // Reiniciar el juego
+  iniciarTemporizador();
 }
 
 // Función de temporizador
@@ -253,24 +309,57 @@ botonReinicio.addEventListener("click", () => {
     carta.classList.add("flipped");
     carta.querySelector(".front").textContent = carta.dataset.emoji;
   });
+
   setTimeout(() => {
     document.querySelectorAll(".carta").forEach((carta) => {
       carta.classList.remove("flipped");
       carta.querySelector(".front").textContent = "";
     });
     tablero.classList.remove("noClick");
-  }, 3000);
+  }, tiempoMostrar);
 });
 
-btnIniciar.addEventListener("click", () => {
+//para obtener el nombre y no seguir si no lo tiene
+function obtenerNombreJugador() {
   const nombre = nombreInput.value.trim();
-  if (nombre) {
-    pantallaInicio.style.display = "none"; // Ocultar la pantalla de inicio
-    containerJuego.style.display = "flex"; // Mostrar el juego
-    tablero.classList.add("noClick");
-    mezclarCartas(cartas);
-    generarTablero();
-  } else {
+  if (!nombre) {
     alert("Por favor, ingresa tu nombre para comenzar.");
+    return null;
   }
-});
+  return nombre;
+}
+
+//para volver a la pantalla de inicio
+function volverPantallaAtras() {
+  containerJuego.style.display = "none";
+  pantallaInicio.style.display = "flex";
+  clearInterval(temporizador);
+  tablero.innerHTML = "";
+  paresDescubiertos = 0;
+  intentos = 0;
+  contadorIntentos.textContent = intentos;
+  mensajeGanador.textContent = "";
+  mensajeGanador.style.display = "none";
+  tiempoRestante = "⏰";
+  document.getElementById("tiempo").textContent = tiempoRestante;
+}
+
+//MODOS DE JUEGO
+
+//iniciar el juego segun el modo
+function iniciarJuegoModo(modo) {
+  const nombre = obtenerNombreJugador();
+  if (!nombre) return; //si no hay nombre no seguir
+
+  pantallaInicio.style.display = "none";
+  containerJuego.style.display = "flex";
+  tablero.classList.add("noClick");
+  modoActual = modo;
+  iniciarJuego();
+}
+
+//seleccionar el modo de juego
+btnClasico.addEventListener("click", () => iniciarJuegoModo("clasico"));
+btnInverso.addEventListener("click", () => iniciarJuegoModo("inverso"));
+
+btnAtras.addEventListener("click", () => volverPantallaAtras());
