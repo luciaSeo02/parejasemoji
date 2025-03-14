@@ -5,9 +5,8 @@
 }
 
 body {
-  background-color: #000;
+  background: linear-gradient(135deg, #1e1e1e, #121212);
   color: #fff;
-  font-family: Arial, sans-serif;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -15,6 +14,12 @@ body {
   height: 100vh;
   margin: 0;
   padding: 20px;
+}
+
+.pantalla-inicio label {
+  display: block;
+  margin: 8px auto;
+  font-size: 1rem;
 }
 
 #dificultad {
@@ -45,42 +50,52 @@ body {
 
 .pantalla-inicio {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.9),
     rgba(0, 0, 0, 0.7)
   ); /* Fondo degradado */
-  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.3);
+  animation: fadeIn 1s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+
 .pantalla-inicio input {
-  padding: 10px;
-  margin: 10px;
+  padding: 12px;
+  width: 100%;
   font-size: 1rem;
-  border-radius: 5px;
-  border: none;
+  border-radius: 8px;
+  border: 2px solid #ff7e5f;
+  background: #222;
+  color: white;
+  margin-bottom: 15px;
 }
 
 .pantalla-inicio button {
-  background-color: rgb(252, 60, 2);
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
   color: white;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
-  cursor: pointer;
   font-size: 1.1rem;
-  border-radius: 5px;
-  animation: aparecer 1s ease-out;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 .pantalla-inicio button:hover {
-  background-color: rgb(211, 60, 60);
+  background: linear-gradient(135deg, #feb47b, #ff7e5f);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
 }
 
 #menuModos {
@@ -114,12 +129,9 @@ body {
 }
 
 h1 {
-  font-family: "Poppins", sans-serif;
   font-size: 2rem;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 10px;
+  margin-bottom: 20px; /* Aumenta separación */
 }
 
 .container {
@@ -198,7 +210,7 @@ h1 {
 }
 
 .carta.pareja {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 215, 0, 1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgb(179, 133, 73);
 }
 
 .carta:active {
@@ -235,19 +247,21 @@ h1 {
 }
 
 button {
-  background-color: red;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
   color: white;
+  padding: 12px 20px;
   border: none;
-  padding: 12px 25px;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  min-width: 100px;
+  transition: all 0.3s ease-in-out;
 }
 
+
 button:hover {
-  background-color: darkred;
+  background: linear-gradient(135deg, #feb47b, #ff7e5f);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
 }
 
 /* Responsive para móviles */
@@ -411,5 +425,16 @@ button:hover {
   }
   50% {
     transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+/* Animación de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
 }
