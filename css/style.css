@@ -1,440 +1,464 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: linear-gradient(135deg, #1e1e1e, #121212);
-  color: #fff;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 20px;
+    background: linear-gradient(135deg, #1e1e1e, #121212);
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
 }
 
 .pantalla-inicio label {
-  display: block;
-  margin: 8px auto;
-  font-size: 1rem;
+    display: block;
+    margin: 8px auto;
+    font-size: 1rem;
 }
 
 #dificultad {
-  padding: 10px;
-  margin: 10px;
-  font-size: 1rem;
-  border-radius: 25px;
-  border: 2px solid rgb(252, 60, 2);
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
-  color: white;
-  transition: background-color 0.3s ease, border-color 0.3s ease,
-    transform 0.3s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    margin: 10px;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 2px solid rgb(252, 60, 2);
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+        transform 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 #dificultad:hover {
-  background-color: rgb(252, 60, 2);
-  border-color: white;
-  transform: scale(1.05);
+    background-color: rgb(252, 60, 2);
+    border-color: white;
+    transform: scale(1.05);
 }
 
 #dificultad option {
-  background-color: #444;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
+    background-color: #444;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .pantalla-inicio {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 400px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.9),
-    rgba(0, 0, 0, 0.7)
-  ); /* Fondo degradado */
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 165, 0, 0.3);
-  animation: fadeIn 1s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.9),
+        rgba(0, 0, 0, 0.7)
+    ); /* Fondo degradado */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.3);
+    animation: fadeIn 1s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-
 .pantalla-inicio input {
-  padding: 12px;
-  width: 100%;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 2px solid #ff7e5f;
-  background: #222;
-  color: white;
-  margin-bottom: 15px;
+    padding: 12px;
+    width: 100%;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid #ff7e5f;
+    background: #222;
+    color: white;
+    margin-bottom: 15px;
 }
 
 .pantalla-inicio button {
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 .pantalla-inicio button:hover {
-  background: linear-gradient(135deg, #feb47b, #ff7e5f);
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+    background: linear-gradient(135deg, #feb47b, #ff7e5f);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
 }
 
 #menuModos {
-  text-align: center;
-  margin-top: 20px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 #menuModos h3 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+    font-size: 1.5em;
+    margin-bottom: 10px;
 }
 
 #menuModos button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 1em;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
 }
 
 #menuModos button:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
 }
 
 #menuModos button:active {
-  transform: scale(0.95);
+    transform: scale(0.95);
 }
 
 h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 20px; /* Aumenta separación */
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px; /* Aumenta separación */
 }
 
 .container {
-  display: flex;
-  flex-direction: row;
-  background: #222;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-  align-items: center;
-  gap: 20px;
+    display: flex;
+    flex-direction: row;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    align-items: center;
+    gap: 20px;
 }
 
 .contenedorJuego {
-  display: grid;
-  grid-template-columns: repeat(4, 100px);
-  grid-template-rows: repeat(4, 100px);
-  gap: 10px;
-  background: #333;
-  padding: 15px;
-  border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 10px;
+    background: #333;
+    padding: 15px;
+    border-radius: 10px;
 }
 
 .carta {
-  width: 100px;
-  height: 100px;
-  background: #666;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  position: relative;
-  perspective: 1000px;
-  cursor: pointer;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-  transition: box-shadow 0.3s ease;
+    width: 100px;
+    height: 100px;
+    background: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    transition: box-shadow 0.3s ease;
 }
 
 .carta.pareja {
-  pointer-events: none;
+    pointer-events: none;
 }
 
 .carta:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra al pasar el mouse */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra al pasar el mouse */
 }
 
 .carta .cara {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  backface-visibility: hidden;
-  transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    transition: transform 0.5s ease-in-out;
 }
 
 .carta .front {
-  background: #444;
-  transform: rotateY(180deg);
-  font-size: 2rem;
+    background: #444;
+    transform: rotateY(180deg);
+    font-size: 2rem;
 }
 
 .carta .back {
-  background: #666;
-  transform: rotateY(0deg);
-  font-size: 4rem;
+    background: #666;
+    transform: rotateY(0deg);
+    font-size: 4rem;
 }
 
 .carta.flipped {
-  background: #444;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Agregar sombra sutil al voltear la carta */
+    background: #444;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Agregar sombra sutil al voltear la carta */
 }
 
 .carta.pareja {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgb(179, 133, 73);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgb(179, 133, 73);
 }
 
 .carta:active {
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .carta.flipped .front {
-  transform: rotateY(0deg);
+    transform: rotateY(0deg);
 }
 
 .carta.flipped .back {
-  transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
 }
 
 .noClick .carta {
-  /* para descactivar las cartas */
-  pointer-events: none;
-  opacity: 0.8;
+    /* para descactivar las cartas */
+    pointer-events: none;
+    opacity: 0.8;
 }
 
 .info {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
 }
 
 .info p {
-  background: #333;
-  padding: 15px;
-  border-radius: 5px;
-  border: 1px solid white;
-  min-width: 100px;
+    background: #333;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid white;
+    min-width: 100px;
 }
 
 button {
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
-
 button:hover {
-  background: linear-gradient(135deg, #feb47b, #ff7e5f);
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+    background: linear-gradient(135deg, #feb47b, #ff7e5f);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
 }
 
 /* Responsive para móviles */
 @media (max-width: 800px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+    .container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 
-  h1 {
-    margin-bottom: 20px;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
-  .info {
-    flex-direction: row;
-    margin: 0;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-  .info p {
-    font-size: 0.6rem;
-    padding: 15px;
-    min-width: 80px;
-  }
-  #botonReiniciar {
-    font-size: 1rem;
-    padding: 15px;
-    min-width: 80px;
-  }
-  .contenedorJuego {
-    grid-template-columns: repeat(4, minmax(60px, 1fr));
-    grid-template-rows: repeat(4, minmax(60px, 1fr));
-    gap: 5px;
-    max-width: 90vw;
-    max-height: 90vh;
-    overflow: hidden;
-  }
-  .carta {
-    width: 100%;
-    height: 100%;
-  }
-  .carta .back {
-    font-size: 2.5rem;
-  }
-  #menuModos button {
-    display: block;
-    width: 80%;
-    margin: 10px auto;
-  }
+    h1 {
+        margin-bottom: 20px;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .info {
+        flex-direction: row;
+        margin: 0;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+    }
+    .info p {
+        font-size: 0.6rem;
+        padding: 15px;
+        min-width: 80px;
+    }
+    #botonReiniciar {
+        font-size: 1rem;
+        padding: 15px;
+        min-width: 80px;
+    }
+    .contenedorJuego {
+        grid-template-columns: repeat(4, minmax(60px, 1fr));
+        grid-template-rows: repeat(4, minmax(60px, 1fr));
+        gap: 5px;
+        max-width: 90vw;
+        max-height: 90vh;
+        overflow: hidden;
+    }
+    .carta {
+        width: 100%;
+        height: 100%;
+    }
+    .carta .back {
+        font-size: 2.5rem;
+    }
+    #menuModos button {
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+    }
 }
 
 /* animaciones para las cartas */
 @keyframes latidoBrillo {
-  0% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  30% {
-    transform: scale(1.1);
-    filter: brightness(1.5);
-  }
-  60% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    30% {
+        transform: scale(1.1);
+        filter: brightness(1.5);
+    }
+    60% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
 }
 
 .pareja {
-  animation: latidoBrillo 0.5s ease;
+    animation: latidoBrillo 0.5s ease;
 }
 
 @keyframes rebote {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .carta:active {
-  animation: rebote 0.3s ease-in-out;
+    animation: rebote 0.3s ease-in-out;
 }
 
 @keyframes temblor {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-  100% {
-    transform: translateX(5px);
-  }
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(5px);
+    }
 }
 
 .fallo {
-  animation: temblor 0.3s linear;
+    animation: temblor 0.3s linear;
 }
 
 #botonReiniciar:active {
-  transform: scale(0.9);
+    transform: scale(0.9);
 }
 
 @keyframes aparecer {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .container {
-  display: none;
-  position: relative;
+    display: none;
+    position: relative;
 }
 
 #mensajeGanador {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.95);
-  color: #fff;
-  padding: 2rem;
-  border-radius: 15px;
-  font-size: 1.5rem;
-  text-align: center;
-  z-index: 1000;
-  display: none;
-  border: 2px solid rgb(252, 60, 2);
-  box-shadow: 0 0 20px rgba(252, 60, 2, 0.3);
-  animation: pulso 1s infinite;
-  pointer-events: none;
-  opacity: 0.9;
-  animation: pulso 1s infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 0 20px rgba(252, 60, 2, 0.3);
+    animation: pulso 1s infinite;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+#mensajeGanador.ganador {
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(0, 255, 0, 1);
+    animation: pulso 1s infinite;
+}
+
+#mensajeGanador.perdedor {
+    border-color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 0, 0, 1);
+    animation: vibracion 0.5s infinite;
 }
 
 @keyframes pulso {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+@keyframes vibracion {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    25% {
+        transform: translate(-50%, -50%) rotate(2deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(-2deg);
+    }
+    75% {
+        transform: translate(-50%, -50%) rotate(2deg);
+    }
 }
 /* Animación de aparición */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -60%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
