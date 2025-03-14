@@ -10,6 +10,14 @@
       <h2>Bienvenido al Juego de Memoria</h2>
       <label for="nombreJugador">Ingresa tu nombre:</label>
       <input type="text" id="nombreJugador" placeholder="Tu nombre aquí" />
+      
+      <label for="dificultad">Selecciona la dificultad:</label>
+        <select id="dificultad">
+          <option value="easy">Fácil 😊 (4 pares)</option>
+          <option value="medium">Medio 😐 (8 pares)</option>
+          <option value="hard">Difícil 😬 (12 pares)</option>
+        </select>
+
       <button id="btnIniciar">Iniciar Juego</button>
     </div>
 
@@ -19,13 +27,13 @@
       <section class="contenedorJuego" id="tableroJuego"></section>
 
       <div class="info">
-        <p><span id="tiempo">60</span></p>
+        <p><span id="tiempo">⏰</span></p>
         <p>Intentos: <span id="intentos">0</span></p>
         <button id="botonReiniciar">Start</button>
       </div>
       <section id="mensajeGanador" class="ganador"></section>
     </div>
 
-    <script src="./js/script.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>

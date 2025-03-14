@@ -17,6 +17,32 @@ body {
   padding: 20px;
 }
 
+
+#dificultad {
+  padding: 10px;
+  margin: 10px;
+  font-size: 1rem;
+  border-radius: 25px; 
+  border: 2px solid rgb(252, 60, 2);
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); 
+  color: white;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); 
+}
+
+#dificultad:hover {
+  background-color: rgb(252, 60, 2); 
+  border-color: white; 
+  transform: scale(1.05); 
+}
+
+#dificultad option {
+  background-color: #444; 
+  color: white; 
+  padding: 10px; 
+  border-radius: 5px; 
+}
+
 .pantalla-inicio {
   position: absolute;
   top: 0;

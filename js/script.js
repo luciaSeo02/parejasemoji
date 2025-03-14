@@ -10,6 +10,7 @@ const pantallaInicio = document.getElementById("pantallaInicio");
 const nombreInput = document.getElementById("nombreJugador");
 const btnIniciar = document.getElementById("btnIniciar");
 const containerJuego = document.querySelector(".container");
+const dificultadSelect = document.getElementById("dificultad"); // Selector de dificultad
 
 //Sonidos
 const sonidoSeleccionCarta = new Audio("./audio/card01.mp3");
@@ -19,8 +20,21 @@ const sonidoClick = new Audio("./audio/click02.mp3");
 const sonidoGanar = new Audio("./audio/win01.mp3");
 
 // Declaración de variables
-const emojis = ["🙉", "🚀", "🌈", "🍉", "⛔️", "🏀", "💵", "🎁"];
-let cartas = [...emojis, ...emojis];
+const emojis = [
+  "🙉",
+  "🚀",
+  "🌈",
+  "🍉",
+  "⛔️",
+  "🏀",
+  "💵",
+  "🎁",
+  "🎉",
+  "🌟",
+  "🍀",
+  "❤️",
+];
+let cartas = [];
 let cartasGiradas = [];
 let intentos = 0;
 let firstCard = null;
@@ -38,33 +52,42 @@ const mezclarCartas = (array) => {
   return array;
 };
 
-// Función para generar tablero
 function generarTablero() {
   tablero.innerHTML = ""; // Para empezar vacío
-  cartas.forEach((emoji, indice) => {
-    const carta = document.createElement("div");
-    carta.classList.add("carta");
-    carta.dataset.emoji = emoji; //guardar el dato del emoji en la carta
-    carta.dataset.indice = indice; //guardar el dato del indice emoji en el array
+  const filas = Math.ceil(cartas.length / 4); // Calcular el número de filas según la cantidad de cartas
+  const columnas = window.innerWidth < 800 ? 2 : 4; // Cambiar a 2 columnas si el ancho es menor a 800px
+  tablero.style.gridTemplateColumns = `repeat(${columnas}, 100px)`; // Mantener 2 o 4 columnas
 
-    // Crear la cara back y front de la carta
-    const frontFace = document.createElement("div");
-    frontFace.classList.add("cara", "front");
-    frontFace.textContent = "";
+  for (let i = 0; i < filas; i++) {
+    for (let j = 0; j < columnas; j++) {
+      const index = i * columnas + j; // Calcular el índice de la carta
+      if (index < cartas.length) {
+        // Verificar que el índice no exceda la cantidad de cartas
+        const carta = document.createElement("div");
+        carta.classList.add("carta");
+        carta.dataset.emoji = cartas[index]; //guardar el dato del emoji en la carta
+        carta.dataset.indice = index; //guardar el dato del indice emoji en el array
 
-    const backFace = document.createElement("div");
-    backFace.classList.add("cara", "back");
-    backFace.textContent = "❔"; // Puedes usar un ícono o dejarlo vacío
+        // Crear la cara back y front de la carta
+        const frontFace = document.createElement("div");
+        frontFace.classList.add("cara", "front");
+        frontFace.textContent = "";
 
-    // Añadir las caras a la carta
-    carta.appendChild(frontFace);
-    carta.appendChild(backFace);
+        const backFace = document.createElement("div");
+        backFace.classList.add("cara", "back");
+        backFace.textContent = "❔"; // Puedes usar un ícono o dejarlo vacío
 
-    carta.addEventListener("click", handleCardClick); // Girar la carta cuando se hace clic
-    tablero.appendChild(carta); // Añadir como hijo al tablero cada carta
-  });
+        // Añadir las caras a la carta
+        carta.appendChild(frontFace);
+        carta.appendChild(backFace);
 
-  //Reiniciar variables
+        carta.addEventListener("click", handleCardClick); // Girar la carta cuando se hace clic
+        tablero.appendChild(carta); // Añadir como hijo al tablero cada carta
+      }
+    }
+  }
+
+  // Reiniciar variables
   firstCard = null;
   secondCard = null;
   cartasGiradas = [];
@@ -152,6 +175,9 @@ function verificarPareja() {
   if (document.querySelectorAll(".carta.flipped ").length === cartas.length) {
     setTimeout(() => {
       sonidoGanar.play();
+      let mensaje = `¡Felicidades! Has completado el juego en ${intentos} intentos.`;
+      mensajeGanador.textContent = mensaje;
+      mensajeGanador.style.display = "block";
     }, 1000);
     clearInterval(temporizador); // Detener el temporizador
   }
@@ -159,16 +185,6 @@ function verificarPareja() {
   firstCard = null;
   secondCard = null;
 
-  if (paresDescubiertos === 8) {
-    setTimeout(() => {
-      let mensaje = `¡Felicidades! Has completado el juego en ${intentos} intentos.`;
-      if (intentos === 8) {
-        mensaje += " ¡Puntuación perfecta! 🎉";
-      }
-      mensajeGanador.textContent = mensaje;
-      mensajeGanador.style.display = "block";
-    }, 500);
-  }
 }
 
 // Función para iniciar el juego
@@ -176,9 +192,29 @@ function iniciarJuego() {
   tiempoRestante = 60; // Reiniciar el tiempo
   contadorIntentos.textContent = 0; // Reiniciar intentos
   mensajeGanador.textContent = ""; // Limpiar mensaje de victoria
+  const dificultad = dificultadSelect.value; // Obtener la dificultad seleccionada
+  establecerDificultad(dificultad); // Establecer la dificultad
   mezclarCartas(cartas);
   generarTablero();
   iniciarTemporizador(); // Iniciar temporizador
+}
+
+// Función para establecer la dificultad
+function establecerDificultad(dificultad) {
+  switch (dificultad) {
+    case "easy":
+      cartas = [...emojis.slice(0, 4), ...emojis.slice(0, 4)];
+      tiempoRestante = 30;
+      break;
+    case "medium":
+      cartas = [...emojis.slice(0, 8), ...emojis.slice(0, 8)];
+      tiempoRestante = 60;
+      break;
+    case "hard":
+      cartas = [...emojis.slice(0, 12), ...emojis.slice(0, 12)];
+      tiempoRestante = 90;
+      break;
+  }
 }
 
 // Función para reiniciar el juego
