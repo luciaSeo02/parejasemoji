@@ -16,6 +16,8 @@ const btnClasico = document.getElementById("modoClasico");
 const btnInverso = document.getElementById("modoInverso");
 const btnAtras = document.getElementById("botonAtras");
 
+const toggleModoOscuro = document.getElementById("modoOscuroSwitch");
+
 // Sonidos
 const sonidoSeleccionCarta = new Audio("./audio/card01.mp3");
 const sonidoErrorCarta = new Audio("./audio/error01.mp3");
@@ -63,35 +65,43 @@ let tiempoRestante = 60; // 60 segundos de tiempo para el juego
 let modoActual = "clasico"; //marcar el modo de juego
 let tiempoMostrar = 0;
 let nombreJugador = "";
-
+let dificultad = "easy";
 // Variables para el ranking
 let ranking = [];
 
+let cartasEmparejadas = [];
+
 // Función para cargar el ranking desde localStorage
 function cargarRanking() {
-  const rankingGuardado = localStorage.getItem('ranking');
+  const rankingGuardado = localStorage.getItem("ranking");
   ranking = rankingGuardado ? JSON.parse(rankingGuardado) : []; // Cargar el ranking desde localStorage
-  mostrarRanking(); // Mostrar el ranking en la interfaz
 }
 
 // Función para agregar un nuevo puntaje al ranking
 function agregarPuntaje(nombre, intentos) {
-  const jugadorExistente = ranking.find(jugador => jugador.nombre === nombre);
-  
+  const modo = modoActual;
+  const dificultad = dificultadSelect.value;
+
+  nombre = nombre.toUpperCase();
+
+  //buscar si ya tiene un registro en el mismo modo y dificultad
+  const jugadorExistente = ranking.find(
+    (jugador) =>
+      jugador.nombre === nombre &&
+      jugador.modo === modo &&
+      jugador.dificultad === dificultad
+  );
+
   if (jugadorExistente) {
     if (intentos < jugadorExistente.intentos) {
       jugadorExistente.intentos = intentos; // Actualizar el intento
     }
   } else {
-    ranking.push({ nombre, intentos }); // Agregar nuevo jugador
+    ranking.push({ nombre, intentos, modo, dificultad }); // Agregar nuevo jugador
   }
-  
-  ranking.sort((a, b) => a.intentos - b.intentos); // Ordenar por intentos
-  ranking = ranking.filter((jugador, index, self) =>
-    index === self.findIndex((j) => j.nombre === jugador.nombre)
-  );
 
-  mostrarRanking();
+  ranking.sort((a, b) => a.intentos - b.intentos); // Ordenar por intentos
+
   guardarRanking(); // Guardar el ranking después de agregar un nuevo puntaje
 }
 
@@ -99,7 +109,18 @@ function agregarPuntaje(nombre, intentos) {
 function mostrarRanking() {
   const rankingList = document.getElementById("rankingList");
   rankingList.innerHTML = ""; // Limpiar la lista antes de mostrar
-  ranking.forEach((jugador) => {
+
+  // Filtrar el ranking para mostrar solo los puntajes del modo y dificultad actuales
+  const rankingFiltrado = ranking.filter(
+    (jugador) =>
+      jugador.modo === modoActual &&
+      jugador.dificultad === dificultadSelect.value
+  );
+
+  // Ordenar por intentos (menor es mejor)
+  rankingFiltrado.sort((a, b) => a.intentos - b.intentos);
+
+  rankingFiltrado.forEach((jugador) => {
     const li = document.createElement("li");
     li.textContent = `${jugador.nombre}: ${jugador.intentos} intentos`;
     rankingList.appendChild(li);
@@ -108,7 +129,7 @@ function mostrarRanking() {
 
 // Función para guardar el ranking en localStorage
 function guardarRanking() {
-  localStorage.setItem('ranking', JSON.stringify(ranking)); // Guardar el ranking en localStorage
+  localStorage.setItem("ranking", JSON.stringify(ranking)); // Guardar el ranking en localStorage
 }
 
 // Llamar a cargarRanking al iniciar el juego
@@ -124,40 +145,65 @@ const mezclarCartas = (array) => {
 };
 
 function generarTablero() {
-  tablero.innerHTML = ""; // Para empezar vacío
-  const filas = Math.ceil(cartas.length / 4); // Calcular el número de filas según la cantidad de cartas
-  const columnas = window.innerWidth < 800 ? 2 : 4; // Cambiar a 2 columnas si el ancho es menor a 800px
-  tablero.style.gridTemplateColumns = `repeat(${columnas}, 100px)`; // Mantener 2 o 4 columnas
+  tablero.innerHTML = "";
 
-  for (let i = 0; i < filas; i++) {
-    for (let j = 0; j < columnas; j++) {
-      const index = i * columnas + j; // Calcular el índice de la carta
-      if (index < cartas.length) {
-        // Verificar que el índice no exceda la cantidad de cartas
-        const carta = document.createElement("div");
-        carta.classList.add("carta");
-        carta.dataset.emoji = cartas[index]; //guardar el dato del emoji en la carta
-        carta.dataset.indice = index; //guardar el dato del indice emoji en el array
+  let dificultad = dificultadSelect.value;
 
-        // Crear la cara back y front de la carta
-        const frontFace = document.createElement("div");
-        frontFace.classList.add("cara", "front");
-        frontFace.textContent = "";
+  const modoClaro = document.body.classList.contains("lightMode"); //comprobar que este activo el modo claro
 
-        const backFace = document.createElement("div");
-        backFace.classList.add("cara", "back");
-        backFace.textContent = "❔"; // Puedes usar un ícono o dejarlo vacío
+  //definir filas y columnas segun la dificultad
+  let filas, columnas, tamanoCarta;
 
-        // Añadir las caras a la carta
-        carta.appendChild(frontFace);
-        carta.appendChild(backFace);
-
-        carta.addEventListener("click", handleCardClick); // Girar la carta cuando se hace clic
-        tablero.appendChild(carta); // Añadir como hijo al tablero cada carta
-      }
-    }
+  if (dificultad === "easy") {
+    filas = 2;
+    columnas = 4;
+    tamanoCarta = calcularTamanoCarta();
+  } else if (dificultad === "medium") {
+    filas = 4;
+    columnas = 4;
+    tamanoCarta = calcularTamanoCarta();
+  } else if (dificultad === "hard") {
+    filas = 6;
+    columnas = 4;
+    tamanoCarta = calcularTamanoCarta();
   }
 
+  tablero.style.gridTemplateColumns = `repeat(${columnas}, 1fr)`;
+
+  for (let i = 0; i < filas * columnas; i++) {
+    if (i < cartas.length) {
+      const carta = document.createElement("div");
+      carta.classList.add("carta");
+
+      if (modoClaro) {
+        carta.classList.add("lightMode");
+      }
+
+      carta.style.width = tamanoCarta;
+      carta.style.height = tamanoCarta;
+      carta.dataset.emoji = cartas[i];
+
+      if (cartasEmparejadas.includes(i)) {
+        carta.classList.add("flipped");
+        const frontFace = carta.querySelector(".front");
+        frontFace.textContent = carta.dataset.emoji;
+      }
+
+      const frontFace = document.createElement("div");
+      frontFace.classList.add("cara", "front");
+      frontFace.textContent = "";
+
+      const backFace = document.createElement("div");
+      backFace.classList.add("cara", "back");
+      backFace.textContent = "❔";
+
+      carta.appendChild(frontFace);
+      carta.appendChild(backFace);
+
+      carta.addEventListener("click", handleCardClick);
+      tablero.appendChild(carta);
+    }
+  }
   // Reiniciar variables
   firstCard = null;
   secondCard = null;
@@ -165,6 +211,34 @@ function generarTablero() {
   intentos = 0;
   contadorIntentos.textContent = intentos;
 }
+
+// Función para actualizar el tamaño de las cartas
+function actualizarTamanoCartas() {
+  const cartas = document.querySelectorAll(".carta");
+  const tamanoCarta = calcularTamanoCarta(); //tamaño de carta actualizado
+
+  cartas.forEach((carta) => {
+    carta.style.width = tamanoCarta;
+    carta.style.height = tamanoCarta;
+  });
+}
+
+function calcularTamanoCarta() {
+  let tamanoCarta;
+  if (window.innerWidth < 600) {
+    tamanoCarta = "60px"; //pantallas peque
+  } else if (window.innerWidth < 1000) {
+    tamanoCarta = "80px"; //pantallas medianas
+  } else {
+    tamanoCarta = "100px"; //pantallas grandes
+  }
+  return tamanoCarta;
+}
+
+//para adaptar a las pantallas distintas sin recargar
+window.addEventListener("resize", () => {
+  actualizarTamanoCartas();
+});
 
 // Función para voltear la carta
 function flipCard(carta) {
@@ -193,8 +267,7 @@ function handleCardClick(event) {
   const clickedCard = event.target.closest(".carta"); // Seleccionamos la carta completa.
 
   if (clickedCard.classList.contains("flipped") || secondCard) return; // Si la carta ya está volteada, no hacer nada.
-  const sonido = sonidoSeleccionCarta.cloneNode(true);
-  sonido.play();
+  sonidoSeleccionCarta.cloneNode(true).play();
   flipCard(clickedCard);
 
   if (!firstCard) {
@@ -212,7 +285,19 @@ function verificarPareja() {
 
   const [carta1, carta2] = cartasGiradas; //separar el array en dos variables
 
-  if (carta1.dataset.emoji === carta2.dataset.emoji) {
+  let esPareja = false;
+
+  if (modoActual === "inverso") {
+    esPareja = parejasOpuestas.some(
+      ([a, b]) =>
+        (carta1.dataset.emoji === a && carta2.dataset.emoji === b) ||
+        (carta1.dataset.emoji === b && carta2.dataset.emoji === a)
+    );
+  } else {
+    esPareja = carta1.dataset.emoji === carta2.dataset.emoji;
+  }
+
+  if (esPareja) {
     paresDescubiertos++;
     sonidoAciertoCarta.play();
     carta1.classList.add("pareja");
@@ -248,8 +333,11 @@ function verificarPareja() {
       sonidoGanar.play();
       let mensaje = `¡Felicidades, ${nombreInput.value}! Has completado el juego en ${intentos} intentos.`;
       mensajeGanador.textContent = mensaje;
+      mensajeGanador.classList.add("ganador");
+      mensajeGanador.classList.remove("perdedor");
       mensajeGanador.style.display = "block";
       agregarPuntaje(nombreInput.value, intentos); // Agregar puntaje al ranking
+      mostrarRanking();
     }, 1000);
     clearInterval(temporizador); // Detener el temporizador
   }
@@ -260,59 +348,59 @@ function verificarPareja() {
 
 // Función para iniciar el juego
 function iniciarJuego() {
-  tiempoRestante = 60; // Reiniciar el tiempo
-  contadorIntentos.textContent = 0; // Reiniciar intentos
-  mensajeGanador.textContent = ""; // Limpiar mensaje de victoria
-  const dificultad = dificultadSelect.value; // Obtener la dificultad seleccionada
-  establecerDificultad(dificultad); // Establecer la dificultad
+  tiempoRestante = 60;
+  contadorIntentos.textContent = 0;
+  mensajeGanador.textContent = "";
+  const dificultad = dificultadSelect.value;
+  establecerDificultad(dificultad);
+  mostrarRanking();
   mezclarCartas(cartas);
   generarTablero();
-  iniciarTemporizador(); // Iniciar temporizador
 }
 
 // Función para establecer la dificultad
 function establecerDificultad(dificultad) {
   if (modoActual === "clasico") {
-      tiempoMostrar = 3000;
+    tiempoMostrar = 3000;
   } else if (modoActual === "inverso") {
-      tiempoMostrar = 5000;
+    tiempoMostrar = 5000;
   } else {
-      tiempoMostrar = 0;
+    tiempoMostrar = 0;
   }
   if (modoActual === "clasico") {
-      switch (dificultad) {
-          case "easy":
-              cartas = [...emojis.slice(0, 4), ...emojis.slice(0, 4)];
-              tiempoRestante = 30;
-              tiempoMostrar -= 2000;
-              break;
-          case "medium":
-              cartas = [...emojis.slice(0, 8), ...emojis.slice(0, 8)];
-              tiempoRestante = 60;
-              break;
-          case "hard":
-              cartas = [...emojis.slice(0, 12), ...emojis.slice(0, 12)];
-              tiempoRestante = 90;
-              tiempoMostrar += 2000;
-              break;
-      }
+    switch (dificultad) {
+      case "easy":
+        cartas = [...emojis.slice(0, 4), ...emojis.slice(0, 4)];
+        tiempoRestante = 30;
+        tiempoMostrar -= 2000;
+        break;
+      case "medium":
+        cartas = [...emojis.slice(0, 8), ...emojis.slice(0, 8)];
+        tiempoRestante = 60;
+        break;
+      case "hard":
+        cartas = [...emojis.slice(0, 12), ...emojis.slice(0, 12)];
+        tiempoRestante = 90;
+        tiempoMostrar += 2000;
+        break;
+    }
   } else if (modoActual === "inverso") {
-      switch (dificultad) {
-          case "easy":
-              cartas = [...parejasOpuestas.slice(0, 4).flat()];
-              tiempoRestante = 30;
-              tiempoMostrar -= 2000;
-              break;
-          case "medium":
-              cartas = [...parejasOpuestas.slice(0, 8).flat()];
-              tiempoRestante = 60;
-              break;
-          case "hard":
-              cartas = [...parejasOpuestas.slice(0, 12).flat()];
-              tiempoRestante = 90;
-              tiempoMostrar += 2000;
-              break;
-      }
+    switch (dificultad) {
+      case "easy":
+        cartas = [...parejasOpuestas.slice(0, 4).flat()];
+        tiempoRestante = 30;
+        tiempoMostrar -= 2000;
+        break;
+      case "medium":
+        cartas = [...parejasOpuestas.slice(0, 8).flat()];
+        tiempoRestante = 60;
+        break;
+      case "hard":
+        cartas = [...parejasOpuestas.slice(0, 12).flat()];
+        tiempoRestante = 90;
+        tiempoMostrar += 2000;
+        break;
+    }
   }
 }
 
@@ -323,8 +411,10 @@ function reiniciarJuego() {
   mensajeGanador.textContent = "";
   mensajeGanador.classList.remove("ganador", "perdedor");
   sonidoClick.play();
-  clearInterval(temporizador); // Detener el temporizador
-  iniciarJuego(); // Reiniciar el juego
+  clearInterval(temporizador);
+  const nombre = obtenerNombreJugador(); //obtenemos el nombre del jugador
+  if (!nombre) return; //si no tiene nombre no continúa
+  iniciarJuego();
   iniciarTemporizador();
 }
 
@@ -332,16 +422,16 @@ function reiniciarJuego() {
 function iniciarTemporizador() {
   const tiempoDisplay = document.getElementById("tiempo");
   temporizador = setInterval(() => {
-      tiempoRestante--;
-      tiempoDisplay.textContent = tiempoRestante;
-      if (tiempoRestante <= 0) {
-          clearInterval(temporizador);
-          mensajeGanador.textContent = `¡${nombreJugador}, se acabó el tiempo! Has perdido.`;
-          mensajeGanador.classList.add("perdedor");
-          mensajeGanador.classList.remove("ganador");
-          mensajeGanador.style.display = "block";
-          tablero.classList.add("noClick");
-      }
+    tiempoRestante--;
+    tiempoDisplay.textContent = tiempoRestante;
+    if (tiempoRestante <= 0) {
+      clearInterval(temporizador);
+      mensajeGanador.textContent = `¡${nombreJugador}, se acabó el tiempo! Has perdido.`;
+      mensajeGanador.classList.add("perdedor");
+      mensajeGanador.classList.remove("ganador");
+      mensajeGanador.style.display = "block";
+      tablero.classList.add("noClick");
+    }
   }, 1000);
 }
 
@@ -353,25 +443,25 @@ botonReinicio.addEventListener("click", () => {
 
   //Para mostrar las cartas cada vez
   document.querySelectorAll(".carta").forEach((carta) => {
-      carta.classList.add("flipped");
-      carta.querySelector(".front").textContent = carta.dataset.emoji;
+    carta.classList.add("flipped");
+    carta.querySelector(".front").textContent = carta.dataset.emoji;
   });
 
   setTimeout(() => {
-      document.querySelectorAll(".carta").forEach((carta) => {
-          carta.classList.remove("flipped");
-          carta.querySelector(".front").textContent = "";
-      });
-      tablero.classList.remove("noClick");
+    document.querySelectorAll(".carta").forEach((carta) => {
+      carta.classList.remove("flipped");
+      carta.querySelector(".front").textContent = "";
+    });
+    tablero.classList.remove("noClick");
   }, tiempoMostrar);
 });
 
 //para obtener el nombre y no seguir si no lo tiene
 function obtenerNombreJugador() {
-  const nombre = nombreInput.value.trim();
+  const nombre = nombreInput.value.trim().toUpperCase();
   if (!nombre) {
-      alert("Por favor, ingresa tu nombre para comenzar.");
-      return null;
+    alert("Por favor, ingresa tu nombre para comenzar.");
+    return null;
   }
   return nombre;
 }
@@ -385,6 +475,7 @@ function volverPantallaAtras() {
   paresDescubiertos = 0;
   intentos = 0;
   contadorIntentos.textContent = intentos;
+  mensajeGanador.classList.remove("ganador", "perdedor");
   mensajeGanador.textContent = "";
   mensajeGanador.style.display = "none";
   tiempoRestante = "⏰";
@@ -397,8 +488,7 @@ function volverPantallaAtras() {
 function iniciarJuegoModo(modo) {
   const nombre = obtenerNombreJugador();
   if (!nombre) return; //si no hay nombre no seguir
-  nombreJugador = nombre; // Guardar nombre globalmente
-
+  nombreJugador = nombre.toUpperCase(); //guarda nombre mayusculas
   pantallaInicio.style.display = "none";
   containerJuego.style.display = "flex";
   tablero.classList.add("noClick");
@@ -407,7 +497,32 @@ function iniciarJuegoModo(modo) {
 }
 
 //seleccionar el modo de juego
-btnClasico.addEventListener("click", () => iniciarJuegoModo("clasico"));
-btnInverso.addEventListener("click", () => iniciarJuegoModo("inverso"));
+btnClasico.addEventListener("click", () => {
+  iniciarJuegoModo("clasico");
+  sonidoClick.play();
+});
+btnInverso.addEventListener("click", () => {
+  sonidoClick.play();
+  iniciarJuegoModo("inverso");
+});
 
-btnAtras.addEventListener("click", () => volverPantallaAtras());
+btnAtras.addEventListener("click", () => {
+  sonidoClick.play();
+  volverPantallaAtras();
+});
+
+//TEMA DE LA WEB
+toggleModoOscuro.addEventListener("change", () => {
+  document.body.classList.toggle("lightMode");
+  document.querySelector(".info").classList.toggle("lightMode");
+  document.querySelector(".container").classList.toggle("lightMode");
+  document.querySelector(".contenedorJuego").classList.toggle("lightMode");
+  document.querySelector(".ranking").classList.toggle("lightMode");
+  document.querySelector(".pantalla-inicio").classList.toggle("lightMode");
+  mensajeGanador.classList.toggle("lightMode");
+  dificultadSelect.classList.toggle("lightMode");
+  const cartasEnTablero = tablero.querySelectorAll(".carta");
+  cartasEnTablero.forEach((carta) => {
+    carta.classList.toggle("lightMode");
+  });
+});
