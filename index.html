@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juego de Memoria con Emojis</title>
-    <link rel="icon" type="image/png" href="./img/nerdIcono.png" />
+    <link rel="icon" type="image/png" href="./img/nerdIcono.png">
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -11,17 +11,17 @@
       <h2>Bienvenido al Juego de Memoria</h2>
       <label for="nombreJugador">Ingresa tu nombre:</label>
       <input type="text" id="nombreJugador" placeholder="Tu nombre aquí" />
-
+      
       <label for="dificultad">Selecciona la dificultad:</label>
-      <select id="dificultad">
-        <option value="easy">Fácil 😊 (4 pares)</option>
-        <option value="medium">Medio 😐 (8 pares)</option>
-        <option value="hard">Difícil 😬 (12 pares)</option>
-      </select>
-      <div id="menuModos">
-        <h3>Selecciona un modo de juego:</h3>
-        <button id="modoClasico">Clásico</button>
-        <button id="modoInverso">Inverso</button>
+        <select id="dificultad">
+          <option value="easy">Fácil 😊 (4 pares)</option>
+          <option value="medium">Medio 😐 (8 pares)</option>
+          <option value="hard">Difícil 😬 (12 pares)</option>
+        </select>
+        <div id="menuModos">
+          <h3>Selecciona un modo de juego:</h3>
+          <button id="modoClasico">Clásico</button>
+          <button id="modoInverso">Inverso</button>
       </div>
     </div>
 
@@ -31,24 +31,19 @@
       <section class="contenedorJuego" id="tableroJuego"></section>
 
       <div class="info">
-        <div class="switch">
-          <input type="checkbox" id="modoOscuroSwitch" />
-          <label for="modoOscuroSwitch">
-            <span class="sun"><ion-icon name="moon-outline"></ion-icon></span>
-            <span class="moon"><ion-icon name="sunny-outline"></ion-icon></span>
-          </label>
-        </div>
         <p><span id="tiempo">⏰</span></p>
         <p>Intentos: <span id="intentos">0</span></p>
         <button id="botonReiniciar">Start</button>
         <button id="botonAtras">Back</button>
       </div>
+      <section id="mensajeGanador" class="ganador"></section>
       <div class="ranking" id="ranking">
         <h2>Ranking</h2>
+        <h3>Top 5</h3>
         <ul id="rankingList"></ul>
       </div>
-      <section id="mensajeGanador" class="ganador"></section>
     </div>
+
     <script src="js/script.js"></script>
   </body>
 </html>

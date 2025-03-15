@@ -120,7 +120,10 @@ function mostrarRanking() {
   // Ordenar por intentos (menor es mejor)
   rankingFiltrado.sort((a, b) => a.intentos - b.intentos);
 
-  rankingFiltrado.forEach((jugador) => {
+  // Limitar a los primeros 5 jugadores
+  const top5Ranking = rankingFiltrado.slice(0, 5);
+
+  top5Ranking.forEach((jugador) => {
     const li = document.createElement("li");
     li.textContent = `${jugador.nombre}: ${jugador.intentos} intentos`;
     rankingList.appendChild(li);
