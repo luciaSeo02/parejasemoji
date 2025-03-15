@@ -460,9 +460,11 @@ botonReinicio.addEventListener("click", () => {
 function obtenerNombreJugador() {
   const nombre = nombreInput.value.trim().toUpperCase();
   if (!nombre) {
-    alert("Por favor, ingresa tu nombre para comenzar.");
+    // alert("Por favor, ingresa tu nombre para comenzar.");
+    document.querySelector(".alertaNombre").style.display = "block";
     return null;
   }
+  document.querySelector(".alertaNombre").style.display = "none";
   return nombre;
 }
 

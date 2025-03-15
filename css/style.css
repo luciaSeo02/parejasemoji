@@ -594,6 +594,16 @@ button:hover {
   }
 }
 
+.alertaNombre {
+  display: none;
+  font-size: 0.8rem;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border: 1px solid #f87171;
+  border-radius: 5px;
+  padding: 8px 12px;
+}
+
 /* Estilo del slider */
 .switch {
   position: relative;
@@ -721,6 +731,12 @@ body.lightMode {
   ); /* Fondo degradado */
   box-shadow: 0 0 20px rgba(0, 204, 255, 0.3);
 }
+
+/* REVISAR ESTO */
+/* .pantalla-inicio.lightMode input {
+  background: #ffffff;
+  color: rgb(136, 135, 135);
+} */
 
 #mensajeGanador.lightMode {
   color: #333;

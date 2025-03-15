@@ -12,6 +12,10 @@
       <label for="nombreJugador">Ingresa tu nombre:</label>
       <input type="text" id="nombreJugador" placeholder="Tu nombre aquí" />
 
+      <div class="alertaNombre">
+        <p>⚠️ Por favor, ingresa tu nombre para comenzar</p>
+      </div>
+
       <label for="dificultad">Selecciona la dificultad:</label>
       <select id="dificultad">
         <option value="easy">Fácil 😊 (4 pares)</option>
@@ -49,6 +53,17 @@
       </div>
       <section id="mensajeGanador" class="ganador"></section>
     </div>
+
+    <!-- scripts para los iconos -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
     <script src="js/script.js"></script>
   </body>
 </html>
