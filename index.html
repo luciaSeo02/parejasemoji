@@ -1,87 +1,110 @@
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Juego de Memoria con Emojis</title>
-    <link rel="icon" type="image/png" href="./img/nerdIcono.png" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Juego de Memoria con Emojis</title>
+        <link rel="icon" type="image/png" href="./img/nerdIcono.png" />
+        <link
+            rel="icon"
+            type="image/png"
+            href="./img/favicon-96x96.png"
+            sizes="96x96"
+        />
+        <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+        <link rel="shortcut icon" href="./img/favicon.ico" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="./img/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="./img/site.webmanifest" />
 
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="./css/lightMode.css" />
-    <link rel="stylesheet" href="./css/animaciones.css" />
-    <link rel="stylesheet" href="./css/responsive.css" />
-    <link rel="stylesheet" href="./css/ranking.css" />
-    <link rel="stylesheet" href="./css/pantallaInicio.css" />
-  </head>
-  <body>
-    <div id="pantallaInicio" class="pantalla-inicio">
-      <h2>Bienvenido al Juego de Memoria</h2>
-      <label for="nombreJugador">Ingresa tu nombre:</label>
-      <input type="text" id="nombreJugador" placeholder="Tu nombre aquí" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="./css/lightMode.css" />
+        <link rel="stylesheet" href="./css/animaciones.css" />
+        <link rel="stylesheet" href="./css/responsive.css" />
+        <link rel="stylesheet" href="./css/ranking.css" />
+        <link rel="stylesheet" href="./css/pantallaInicio.css" />
+    </head>
+    <body>
+        <div id="pantallaInicio" class="pantalla-inicio">
+            <h2>Bienvenido al Juego de Memoria</h2>
+            <label for="nombreJugador">Ingresa tu nombre:</label>
+            <input
+                type="text"
+                id="nombreJugador"
+                placeholder="Tu nombre aquí"
+            />
 
-      <div class="alertaNombre">
-        <p>⚠️ Por favor, ingresa tu nombre para comenzar</p>
-      </div>
+            <div class="alertaNombre">
+                <p>⚠️ Por favor, ingresa tu nombre para comenzar</p>
+            </div>
 
-      <label for="dificultad">Selecciona la dificultad:</label>
-      <select id="dificultad">
-        <option value="easy">Fácil 😊 (4 pares)</option>
-        <option value="medium">Medio 😐 (8 pares)</option>
-        <option value="hard">Difícil 😬 (12 pares)</option>
-      </select>
-      <div id="menuModos">
-        <h3>Selecciona un modo de juego:</h3>
-        <button id="modoClasico">Clásico</button>
-        <button id="modoInverso">Inverso</button>
-      </div>
-    </div>
-
-    <div class="container">
-      <h1>Parejas de Emoji</h1>
-
-      <section class="contenedorJuego" id="tableroJuego"></section>
-
-      <div class="info">
-        <div class="switch">
-          <input type="checkbox" id="modoOscuroSwitch" />
-          <label for="modoOscuroSwitch">
-            <span class="sun"><ion-icon name="moon-outline"></ion-icon></span>
-            <span class="moon"><ion-icon name="sunny-outline"></ion-icon></span>
-          </label>
+            <label for="dificultad">Selecciona la dificultad:</label>
+            <select id="dificultad">
+                <option value="easy">Fácil 😊 (4 pares)</option>
+                <option value="medium">Medio 😐 (8 pares)</option>
+                <option value="hard">Difícil 😬 (12 pares)</option>
+            </select>
+            <div id="menuModos">
+                <h3>Selecciona un modo de juego:</h3>
+                <button id="modoClasico">Clásico</button>
+                <button id="modoInverso">Inverso</button>
+            </div>
         </div>
-        <p><span id="tiempo">⏰</span></p>
-        <p>Intentos: <span id="intentos">0</span></p>
-        <button id="botonReiniciar">Start</button>
-        <button id="botonAtras">Back</button>
-      </div>
-      <section id="mensajeGanador" class="ganador"></section>
-      <div class="ranking" id="ranking">
-        <h2>Ranking</h2>
-        <h3>Top 5</h3>
-        <ul id="rankingList"></ul>
-        <button id="resetRanking">Resetear Ranking</button>
-        <div id="warningMessage">
-          <h4>⚠️¿Estás seguro?</h4>
-          <p>
-            Esta acción reseteará todos los rankings y no se puede deshacer.
-          </p>
-          <div class="btnWarning">
-            <button id="confirmReset">✔</button>
-            <button id="cancelReset">❌</button>
-          </div>
+
+        <div class="container">
+            <h1>Parejas de Emoji</h1>
+
+            <section class="contenedorJuego" id="tableroJuego"></section>
+
+            <div class="info">
+                <div class="switch">
+                    <input type="checkbox" id="modoOscuroSwitch" />
+                    <label for="modoOscuroSwitch">
+                        <span class="sun"
+                            ><ion-icon name="moon-outline"></ion-icon
+                        ></span>
+                        <span class="moon"
+                            ><ion-icon name="sunny-outline"></ion-icon
+                        ></span>
+                    </label>
+                </div>
+                <p><span id="tiempo">⏰</span></p>
+                <p>Intentos: <span id="intentos">0</span></p>
+                <button id="botonReiniciar">Start</button>
+                <button id="botonAtras">Back</button>
+            </div>
+            <section id="mensajeGanador" class="ganador"></section>
+            <div class="ranking" id="ranking">
+                <h2>Ranking</h2>
+                <h3>Top 5</h3>
+                <ul id="rankingList"></ul>
+                <button id="resetRanking">Resetear Ranking</button>
+                <div id="warningMessage">
+                    <h4>⚠️¿Estás seguro?</h4>
+                    <p>
+                        Esta acción reseteará todos los rankings y no se puede
+                        deshacer.
+                    </p>
+                    <div class="btnWarning">
+                        <button id="confirmReset">✔</button>
+                        <button id="cancelReset">❌</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!-- scripts para los iconos -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
+        <!-- scripts para los iconos -->
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+        ></script>
 
-    <script src="js/script.js"></script>
-  </body>
+        <script src="js/script.js"></script>
+    </body>
 </html>

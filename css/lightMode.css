@@ -1,166 +1,166 @@
 /* Estilo del slider */
 .switch {
-  position: relative;
-  width: 100px;
-  height: 40px;
+    position: relative;
+    width: 100px;
+    height: 40px;
 }
 
 .switch label {
-  width: 100px;
-  height: 40px;
-  position: relative;
-  display: block;
-  background: #555555;
-  border-radius: 200px;
-  box-shadow: 0px 5px 15px rgba(88, 88, 88, 0.4);
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
+    width: 100px;
+    height: 40px;
+    position: relative;
+    display: block;
+    background: #555555;
+    border-radius: 200px;
+    box-shadow: 0px 5px 15px rgba(88, 88, 88, 0.4);
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
 }
 
 .switch label::after {
-  content: "";
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  background: linear-gradient(180deg, #777, #3a3a3a);
-  border-radius: 50%;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  transition: 0.3s ease-in-out;
+    content: "";
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: linear-gradient(180deg, #777, #3a3a3a);
+    border-radius: 50%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s ease-in-out;
 }
 
 .switch input {
-  width: 0;
-  height: 0;
-  visibility: hidden;
+    width: 0;
+    height: 0;
+    visibility: hidden;
 }
 
 .switch input:checked + label {
-  background-color: #dfdfdf;
+    background-color: #dfdfdf;
 }
 
 .switch input:checked + label::after {
-  left: 95px;
-  transform: translateX(-100%);
-  background: linear-gradient(180deg, #ffcc89, #d8860b);
+    left: 95px;
+    transform: translateX(-100%);
+    background: linear-gradient(180deg, #ffcc89, #d8860b);
 }
 
 .switch label span {
-  position: absolute;
-  top: 10px;
-  z-index: 10;
-  font-size: 20px;
-  transition: color 0.3s ease-in-out;
+    position: absolute;
+    top: 10px;
+    z-index: 10;
+    font-size: 20px;
+    transition: color 0.3s ease-in-out;
 }
 
 .switch label .sun {
-  left: 10px;
-  color: white;
+    left: 10px;
+    color: white;
 }
 
 .switch label .moon {
-  right: 10px;
-  color: #7e7e7e;
+    right: 10px;
+    color: #7e7e7e;
 }
 
 .switch input:checked + label .sun {
-  color: #7e7e7e;
+    color: #7e7e7e;
 }
 
 .switch input:checked + label .moon {
-  color: #fff;
+    color: #fff;
 }
 
 /* MODO CLARO (Light Mode) */
 body.lightMode {
-  background: #d0ebf7;
-  color: rgb(41, 41, 41);
+    background: #d0ebf7;
+    color: rgb(41, 41, 41);
 }
 
 .pantalla-inicio.lightMode {
-  background: linear-gradient(
-    to bottom,
-    rgba(228, 243, 243, 0.9),
-    rgba(186, 233, 240, 0.7)
-  );
-  box-shadow: 0 0 20px rgba(0, 204, 255, 0.3);
+    background: linear-gradient(
+        to bottom,
+        rgba(228, 243, 243, 0.9),
+        rgba(186, 233, 240, 0.7)
+    );
+    box-shadow: 0 0 20px rgba(0, 204, 255, 0.3);
 }
 
 .pantalla-inicio.lightMode input {
-  background: #ffffff;
-  color: rgb(136, 135, 135);
+    background: #ffffff;
+    color: rgb(136, 135, 135);
 }
 
 .info.lightMode p {
-  background: #eef8ff;
-  color: rgb(41, 41, 41);
-  border: 1px solid #474747;
+    background: #eef8ff;
+    color: rgb(41, 41, 41);
+    border: 1px solid #474747;
 }
 
 .container.lightMode {
-  background: #ecf5ff;
+    background: #ecf5ff;
 }
 
 .contenedorJuego.lightMode {
-  background: #d0ebf7;
+    background: #d0ebf7;
 }
 
 .carta.lightMode {
-  background: #6480bd;
+    background: #6480bd;
 }
 
 .carta.lightMode .front {
-  background: #afdbff;
+    background: #afdbff;
 }
 
 .carta.lightMode .back {
-  background: #71a2e2;
+    background: #71a2e2;
 }
 
 .carta.lightMode.flipped {
-  background: #83d1f5;
+    background: #83d1f5;
 }
 
 .carta.lightMode.pareja {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgb(104, 240, 115);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgb(104, 240, 115);
 }
 
 .ranking.lightMode {
-  background-color: rgba(147, 212, 241, 0.9);
-  box-shadow: 0 4px 20px rgba(81, 214, 247, 0.5);
-  color: #222;
+    background-color: rgba(147, 212, 241, 0.9);
+    box-shadow: 0 4px 20px rgba(81, 214, 247, 0.5);
+    color: #222;
 }
 
 .ranking.lightMode li {
-  background-color: rgb(187, 230, 250);
+    background-color: rgb(187, 230, 250);
 }
 
 #mensajeGanador.lightMode {
-  color: #333;
-  background: rgba(233, 245, 244, 0.95);
-  opacity: 1;
-  box-shadow: 0 0 20px rgba(164, 255, 255, 0.3);
+    color: #333;
+    background: rgba(233, 245, 244, 0.95);
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(164, 255, 255, 0.3);
 }
 
 #mensajeGanador.lightMode.ganador {
-  border-color: #00ff00;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(0, 255, 0, 1);
-  animation: pulso 1s infinite;
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(0, 255, 0, 1);
+    animation: pulso 1s infinite;
 }
 
 #mensajeGanador.lightMode.perdedor {
-  border-color: #ff0000;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 0, 0, 1);
-  animation: vibracion 0.5s infinite;
+    border-color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 0, 0, 1);
+    animation: vibracion 0.5s infinite;
 }
 
 #dificultad.lightMode option {
-  background-color: #e7e7e7;
-  color: #333;
+    background-color: #e7e7e7;
+    color: #333;
 }
 
 #warningMessage.lightMode {
-  background: #c6efffea;
-  color: #333;
+    background: #c6efffea;
+    color: #333;
 }
