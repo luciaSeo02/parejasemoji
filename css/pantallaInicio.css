@@ -1,0 +1,117 @@
+.pantalla-inicio {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0.7)
+  ); /* Fondo degradado */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.3);
+  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pantalla-inicio label {
+  display: block;
+  margin: 8px auto;
+  font-size: 1rem;
+}
+
+.pantalla-inicio input {
+  padding: 12px;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #ff7e5f;
+  background: #222;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.pantalla-inicio button {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.pantalla-inicio button:hover {
+  background: linear-gradient(135deg, #feb47b, #ff7e5f);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+}
+
+/* Dificultad */
+
+#dificultad {
+  padding: 10px;
+  margin: 10px;
+  font-size: 1rem;
+  border-radius: 25px;
+  border: 2px solid rgb(252, 60, 2);
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: white;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+#dificultad:hover {
+  background-color: rgb(252, 60, 2);
+  border-color: white;
+  transform: scale(1.05);
+}
+
+#dificultad option {
+  background-color: #444;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Modos */
+#menuModos {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#menuModos h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+#menuModos button {
+  margin: 5px;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#menuModos button:hover {
+  background-color: #0056b3;
+}
+
+#menuModos button:active {
+  transform: scale(0.95);
+}
+
+.alertaNombre {
+  display: none;
+  font-size: 0.8rem;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border: 1px solid #f87171;
+  border-radius: 5px;
+  padding: 8px 12px;
+}

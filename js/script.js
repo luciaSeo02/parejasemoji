@@ -1,5 +1,9 @@
 "use strict";
 
+/* ==============================
+    VARIABLES Y ELEMENTOS DEL DOM
+   ============================== */
+
 // Traer elementos de HTML
 const tablero = document.getElementById("tableroJuego");
 const contadorIntentos = document.getElementById("intentos");
@@ -24,6 +28,12 @@ const sonidoErrorCarta = new Audio("./audio/error01.mp3");
 const sonidoAciertoCarta = new Audio("./audio/matchedCards01.mp3");
 const sonidoClick = new Audio("./audio/click02.mp3");
 const sonidoGanar = new Audio("./audio/win01.mp3");
+const sonidoPerder = new Audio("./audio/lost01.mp3");
+const sonidoSelect = new Audio("./audio/click03.mp3");
+
+/* ==============================
+    DATOS DEL JUEGO (Emojis y Parejas Opuestas)
+   ============================== */
 
 // Declaración de variables
 const emojis = [
@@ -48,95 +58,35 @@ const parejasOpuestas = [
   ["🎵", "🔇"],
   ["🐇", "🐢"],
   ["🔐", "🔓"],
-  ["🛸", "🌍"], //cambiar algunos si no se entiende
+  ["🛸", "🌍"],
   ["😇", "😈"],
   ["🌋", "🗻"],
   ["👴", "👶"],
   ["✈", "🚢"],
 ];
+
+/* ==============================
+    VARIABLES GLOBALES
+   ============================== */
+
 let cartas = [];
 let cartasGiradas = [];
 let intentos;
 let firstCard = null;
 let secondCard = null;
 let paresDescubiertos = 0;
-let temporizador; // Variable para almacenar el temporizador
-let tiempoRestante = 60; // 60 segundos de tiempo para el juego
-let modoActual = "clasico"; //marcar el modo de juego
+let temporizador;
+let tiempoRestante = 60;
+let modoActual = "clasico";
 let tiempoMostrar = 0;
 let nombreJugador = "";
 let dificultad = "easy";
-// Variables para el ranking
 let ranking = [];
-
 let cartasEmparejadas = [];
 
-// Función para cargar el ranking desde localStorage
-function cargarRanking() {
-  const rankingGuardado = localStorage.getItem("ranking");
-  ranking = rankingGuardado ? JSON.parse(rankingGuardado) : []; // Cargar el ranking desde localStorage
-}
-
-// Función para agregar un nuevo puntaje al ranking
-function agregarPuntaje(nombre, intentos) {
-  const modo = modoActual;
-  const dificultad = dificultadSelect.value;
-
-  nombre = nombre.toUpperCase();
-
-  //buscar si ya tiene un registro en el mismo modo y dificultad
-  const jugadorExistente = ranking.find(
-    (jugador) =>
-      jugador.nombre === nombre &&
-      jugador.modo === modo &&
-      jugador.dificultad === dificultad
-  );
-
-  if (jugadorExistente) {
-    if (intentos < jugadorExistente.intentos) {
-      jugadorExistente.intentos = intentos; // Actualizar el intento
-    }
-  } else {
-    ranking.push({ nombre, intentos, modo, dificultad }); // Agregar nuevo jugador
-  }
-
-  ranking.sort((a, b) => a.intentos - b.intentos); // Ordenar por intentos
-
-  guardarRanking(); // Guardar el ranking después de agregar un nuevo puntaje
-}
-
-// Función para mostrar el ranking
-function mostrarRanking() {
-  const rankingList = document.getElementById("rankingList");
-  rankingList.innerHTML = ""; // Limpiar la lista antes de mostrar
-
-  // Filtrar el ranking para mostrar solo los puntajes del modo y dificultad actuales
-  const rankingFiltrado = ranking.filter(
-    (jugador) =>
-      jugador.modo === modoActual &&
-      jugador.dificultad === dificultadSelect.value
-  );
-
-  // Ordenar por intentos (menor es mejor)
-  rankingFiltrado.sort((a, b) => a.intentos - b.intentos);
-
-  // Limitar a los primeros 5 jugadores
-  const top5Ranking = rankingFiltrado.slice(0, 5);
-
-  top5Ranking.forEach((jugador) => {
-    const li = document.createElement("li");
-    li.textContent = `${jugador.nombre}: ${jugador.intentos} intentos`;
-    rankingList.appendChild(li);
-  });
-}
-
-// Función para guardar el ranking en localStorage
-function guardarRanking() {
-  localStorage.setItem("ranking", JSON.stringify(ranking)); // Guardar el ranking en localStorage
-}
-
-// Llamar a cargarRanking al iniciar el juego
-cargarRanking();
+/* ==============================
+    FUNCIONES PRINCIPALES DEL JUEGO
+   ============================== */
 
 // Función para mezclar array
 const mezclarCartas = (array) => {
@@ -147,6 +97,31 @@ const mezclarCartas = (array) => {
   return array;
 };
 
+// Calcular el tamaño de la carta segun la pantalla
+function calcularTamanoCarta() {
+  let tamanoCarta;
+  if (window.innerWidth < 600) {
+    tamanoCarta = "60px"; //pantallas peque
+  } else if (window.innerWidth < 1000) {
+    tamanoCarta = "80px"; //pantallas medianas
+  } else {
+    tamanoCarta = "100px"; //pantallas grandes
+  }
+  return tamanoCarta;
+}
+
+// Función para actualizar el tamaño de las cartas
+function actualizarTamanoCartas() {
+  const cartas = document.querySelectorAll(".carta");
+  const tamanoCarta = calcularTamanoCarta(); //tamaño de carta actualizado
+
+  cartas.forEach((carta) => {
+    carta.style.width = tamanoCarta;
+    carta.style.height = tamanoCarta;
+  });
+}
+
+// Generar el tablero del juego
 function generarTablero() {
   tablero.innerHTML = "";
 
@@ -207,6 +182,7 @@ function generarTablero() {
       tablero.appendChild(carta);
     }
   }
+
   // Reiniciar variables
   firstCard = null;
   secondCard = null;
@@ -215,35 +191,7 @@ function generarTablero() {
   contadorIntentos.textContent = intentos;
 }
 
-// Función para actualizar el tamaño de las cartas
-function actualizarTamanoCartas() {
-  const cartas = document.querySelectorAll(".carta");
-  const tamanoCarta = calcularTamanoCarta(); //tamaño de carta actualizado
-
-  cartas.forEach((carta) => {
-    carta.style.width = tamanoCarta;
-    carta.style.height = tamanoCarta;
-  });
-}
-
-function calcularTamanoCarta() {
-  let tamanoCarta;
-  if (window.innerWidth < 600) {
-    tamanoCarta = "60px"; //pantallas peque
-  } else if (window.innerWidth < 1000) {
-    tamanoCarta = "80px"; //pantallas medianas
-  } else {
-    tamanoCarta = "100px"; //pantallas grandes
-  }
-  return tamanoCarta;
-}
-
-//para adaptar a las pantallas distintas sin recargar
-window.addEventListener("resize", () => {
-  actualizarTamanoCartas();
-});
-
-// Función para voltear la carta
+// Girar una carta
 function flipCard(carta) {
   if (carta.classList.contains("flipped") || cartasGiradas.length >= 2) return;
 
@@ -282,7 +230,7 @@ function handleCardClick(event) {
   }
 }
 
-// Función para verificar si las cartas son iguales
+// Verificar si hay una pareja
 function verificarPareja() {
   if (cartasGiradas.length !== 2) return;
 
@@ -330,7 +278,7 @@ function verificarPareja() {
     carta2.classList.remove("flipped");
   }
 
-  // Verificar si todas las cartas están volteadas
+  // Comprobar si todas las cartas estan giradas
   if (document.querySelectorAll(".carta.flipped").length === cartas.length) {
     setTimeout(() => {
       sonidoGanar.play();
@@ -347,6 +295,90 @@ function verificarPareja() {
   cartasGiradas = [];
   firstCard = null;
   secondCard = null;
+}
+
+/* ==============================
+    MANEJO DEL RANKING
+   ============================== */
+
+// Función para cargar el ranking desde localStorage
+function cargarRanking() {
+  const rankingGuardado = localStorage.getItem("ranking");
+  ranking = rankingGuardado ? JSON.parse(rankingGuardado) : []; // Cargar el ranking desde localStorage
+}
+
+// Función para agregar un nuevo puntaje al ranking
+function agregarPuntaje(nombre, intentos) {
+  const modo = modoActual;
+  const dificultad = dificultadSelect.value;
+
+  nombre = nombre.toUpperCase();
+
+  //buscar si ya tiene un registro en el mismo modo y dificultad
+  const jugadorExistente = ranking.find(
+    (jugador) =>
+      jugador.nombre === nombre &&
+      jugador.modo === modo &&
+      jugador.dificultad === dificultad
+  );
+
+  if (jugadorExistente) {
+    if (intentos < jugadorExistente.intentos) {
+      jugadorExistente.intentos = intentos; // Actualizar el intento
+    }
+  } else {
+    ranking.push({ nombre, intentos, modo, dificultad }); // Agregar nuevo jugador
+  }
+
+  ranking.sort((a, b) => a.intentos - b.intentos); // Ordenar por intentos
+
+  guardarRanking(); // Guardar el ranking después de agregar un nuevo puntaje
+}
+
+// Función para guardar el ranking en localStorage
+function guardarRanking() {
+  localStorage.setItem("ranking", JSON.stringify(ranking)); // Guardar el ranking en localStorage
+}
+
+// Función para mostrar el ranking
+function mostrarRanking() {
+  const rankingList = document.getElementById("rankingList");
+  rankingList.innerHTML = ""; // Limpiar la lista antes de mostrar
+
+  // Filtrar el ranking para mostrar solo los puntajes del modo y dificultad actuales
+  const rankingFiltrado = ranking.filter(
+    (jugador) =>
+      jugador.modo === modoActual &&
+      jugador.dificultad === dificultadSelect.value
+  );
+
+  // Ordenar por intentos (menor es mejor)
+  rankingFiltrado.sort((a, b) => a.intentos - b.intentos);
+
+  // Limitar a los primeros 5 jugadores
+  const top5Ranking = rankingFiltrado.slice(0, 5);
+
+  top5Ranking.forEach((jugador) => {
+    const li = document.createElement("li");
+    li.textContent = `${jugador.nombre}: ${jugador.intentos} intentos`;
+    rankingList.appendChild(li);
+  });
+}
+
+/* ==============================
+    MANEJO DEL JUEGO Y DIFICULTAD
+   ============================== */
+
+//para obtener el nombre y no seguir si no lo tiene
+function obtenerNombreJugador() {
+  const nombre = nombreInput.value.trim().toUpperCase();
+  if (!nombre) {
+    // alert("Por favor, ingresa tu nombre para comenzar.");
+    document.querySelector(".alertaNombre").style.display = "block";
+    return null;
+  }
+  document.querySelector(".alertaNombre").style.display = "none";
+  return nombre;
 }
 
 // Función para iniciar el juego
@@ -430,6 +462,7 @@ function iniciarTemporizador() {
     if (tiempoRestante <= 0) {
       clearInterval(temporizador);
       mensajeGanador.textContent = `¡${nombreJugador}, se acabó el tiempo! Has perdido.`;
+      sonidoPerder.play();
       mensajeGanador.classList.add("perdedor");
       mensajeGanador.classList.remove("ganador");
       mensajeGanador.style.display = "block";
@@ -437,6 +470,50 @@ function iniciarTemporizador() {
     }
   }, 1000);
 }
+
+/* ==============================
+    MODO DE JUEGO
+   ============================== */
+
+//para volver a la pantalla de inicio
+function volverPantallaAtras() {
+  containerJuego.style.display = "none";
+  pantallaInicio.style.display = "flex";
+  clearInterval(temporizador);
+  tablero.innerHTML = "";
+  paresDescubiertos = 0;
+  intentos = 0;
+  contadorIntentos.textContent = intentos;
+  mensajeGanador.classList.remove("ganador", "perdedor");
+  mensajeGanador.textContent = "";
+  mensajeGanador.style.display = "none";
+  tiempoRestante = "⏰";
+  document.getElementById("tiempo").textContent = tiempoRestante;
+}
+
+//iniciar el juego segun el modo
+function iniciarJuegoModo(modo) {
+  const nombre = obtenerNombreJugador();
+  if (!nombre) return; //si no hay nombre no seguir
+  nombreJugador = nombre.toUpperCase(); //guarda nombre mayusculas
+  pantallaInicio.style.display = "none";
+  containerJuego.style.display = "flex";
+  tablero.classList.add("noClick");
+  modoActual = modo;
+  iniciarJuego();
+}
+
+/* ==============================
+    EVENTOS DEL JUEGO
+   ============================== */
+
+// Llamar a cargarRanking al iniciar el juego
+cargarRanking();
+
+//para adaptar a las pantallas distintas sin recargar
+window.addEventListener("resize", () => {
+  actualizarTamanoCartas();
+});
 
 // Evento de reiniciar juego
 botonReinicio.addEventListener("click", () => {
@@ -459,47 +536,33 @@ botonReinicio.addEventListener("click", () => {
   }, tiempoMostrar);
 });
 
-//para obtener el nombre y no seguir si no lo tiene
-function obtenerNombreJugador() {
-  const nombre = nombreInput.value.trim().toUpperCase();
-  if (!nombre) {
-    // alert("Por favor, ingresa tu nombre para comenzar.");
-    document.querySelector(".alertaNombre").style.display = "block";
-    return null;
-  }
-  document.querySelector(".alertaNombre").style.display = "none";
-  return nombre;
-}
+// Resetear el ranking
+document.getElementById("resetRanking").addEventListener("click", function () {
+  document.getElementById("warningMessage").style.display = "flex";
+  document.body.classList.add("deshabilitar-interaccion"); //clase para deshabilitar todo el cuerpo hasta que clickes la opcion
+  sonidoClick.play();
+});
 
-//para volver a la pantalla de inicio
-function volverPantallaAtras() {
-  containerJuego.style.display = "none";
-  pantallaInicio.style.display = "flex";
-  clearInterval(temporizador);
-  tablero.innerHTML = "";
-  paresDescubiertos = 0;
-  intentos = 0;
-  contadorIntentos.textContent = intentos;
-  mensajeGanador.classList.remove("ganador", "perdedor");
-  mensajeGanador.textContent = "";
-  mensajeGanador.style.display = "none";
-  tiempoRestante = "⏰";
-  document.getElementById("tiempo").textContent = tiempoRestante;
-}
+document.getElementById("confirmReset").addEventListener("click", function () {
+  localStorage.removeItem("ranking");
+  ranking = [];
+  mostrarRanking();
+  document.getElementById("warningMessage").style.display = "none";
+  document.body.classList.remove("deshabilitar-interaccion");
+  sonidoSelect.play();
+});
 
-//MODOS DE JUEGO
+document.getElementById("cancelReset").addEventListener("click", function () {
+  document.getElementById("warningMessage").style.display = "none";
+  document.body.classList.remove("deshabilitar-interaccion");
+  sonidoSelect.play();
+});
 
-//iniciar el juego segun el modo
-function iniciarJuegoModo(modo) {
-  const nombre = obtenerNombreJugador();
-  if (!nombre) return; //si no hay nombre no seguir
-  nombreJugador = nombre.toUpperCase(); //guarda nombre mayusculas
-  pantallaInicio.style.display = "none";
-  containerJuego.style.display = "flex";
-  tablero.classList.add("noClick");
-  modoActual = modo;
-  iniciarJuego();
-}
+//sonido para seleccion dificultad
+document.getElementById("dificultad").addEventListener("change", function () {
+  sonidoSelect.currentTime = 0; // Reinicia el sonido
+  sonidoSelect.play();
+});
 
 //seleccionar el modo de juego
 btnClasico.addEventListener("click", () => {
@@ -524,6 +587,7 @@ toggleModoOscuro.addEventListener("change", () => {
   document.querySelector(".contenedorJuego").classList.toggle("lightMode");
   document.querySelector(".ranking").classList.toggle("lightMode");
   document.querySelector(".pantalla-inicio").classList.toggle("lightMode");
+  document.querySelector("#warningMessage").classList.toggle("lightMode");
   mensajeGanador.classList.toggle("lightMode");
   dificultadSelect.classList.toggle("lightMode");
   const cartasEnTablero = tablero.querySelectorAll(".carta");
