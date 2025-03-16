@@ -3,6 +3,7 @@ Es un juego interactivo para poner a prueba tu memoria y tu agilidad mental, don
 El usuario dispone de tres modos de difilcultad (fácil, medio y dificil) donde el número de cartas cambia y dos modos de  juego:     
 - Clasico: encontar parejas iguales.
 - Inverso: encontrar las parejas opuestas.
+
 El jugador debe introducir su nombre para comenzar el juego y los cinco mejores puntajes de menos intentos, se guardaran en un ranking automáticamente, pudiendo restablecerlo mediante el botón "Resetear Ranking".
 El juego cuenta con un modo de visualización claro/oscuro, para una experiencia personalizada
 Los controles del juego serian:
