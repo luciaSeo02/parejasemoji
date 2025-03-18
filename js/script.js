@@ -290,6 +290,11 @@ function verificarPareja() {
             mensajeGanador.style.display = "block";
             agregarPuntaje(nombreInput.value, intentos); // Agregar puntaje al ranking
             mostrarRanking();
+            
+            // Añadi temporizador para ocultar el mensaje después de 5 segundos
+            setTimeout(() => {
+                mensajeGanador.style.display = "none";
+            }, 5000);
         }, 1000);
         clearInterval(temporizador); // Detener el temporizador
     }
@@ -468,6 +473,10 @@ function iniciarTemporizador() {
             mensajeGanador.classList.remove("ganador");
             mensajeGanador.style.display = "block";
             tablero.classList.add("noClick");
+            // Añadi temporizador para ocultar el mensaje después de 5 segundos
+            setTimeout(() => {
+                mensajeGanador.style.display = "none";
+            }, 5000);
         }
     }, 1000);
 }
