@@ -73,8 +73,14 @@
 }
 
 /* MODO CLARO (Light Mode) */
+.iconoInterrogante {
+  color: white;
+}
+
 body.lightMode {
-  background: #d0ebf7;
+  background: linear-gradient(135deg, #b3e5fc, #e1f5fe, #b3e5fc);
+  background-size: 200% 200%;
+  animation: fondoAnimado 8s infinite alternate ease-in-out;
   color: rgb(41, 41, 41);
 }
 
@@ -96,8 +102,10 @@ body.lightMode .pantalla-inicio input:focus {
   background: #fcfcfc;
 }
 
-body.lightMode .pantalla-inicio input:not(:focus):valid {
-  background-color: #fcfcfc;
+body.lightMode .pantalla-inicio {
+  background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+  animation: fondoAnimado 10s infinite alternate ease-in-out;
+  box-shadow: 0 0 30px rgba(0, 170, 255, 0.5);
 }
 
 body.lightMode .info p {
@@ -107,23 +115,24 @@ body.lightMode .info p {
 }
 
 body.lightMode .container {
-  background: #ecf5ff;
+  background: rgba(240, 250, 255, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 170, 255, 0.3);
 }
 
 body.lightMode .contenedorJuego {
-  background: #d0ebf7;
+  background: rgba(220, 245, 255, 0.85);
 }
 
 body.lightMode .carta {
-  background: #6480bd;
+  background: #f5a484;
 }
 
 body.lightMode .carta .front {
-  background: #afdbff;
+  background: linear-gradient(135deg,#5db0f5, #b0c4de);
 }
 
 body.lightMode .carta .back {
-  background: #71a2e2;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
 }
 
 body.lightMode .carta.flipped {

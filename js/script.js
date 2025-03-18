@@ -210,7 +210,8 @@ function generarTablero() {
 
       const backFace = document.createElement("div");
       backFace.classList.add("cara", "back");
-      backFace.textContent = "❔";
+      backFace.innerHTML =
+        '<ion-icon name="help-outline" class="iconoInterrogante"></ion-icon>';
 
       carta.appendChild(frontFace);
       carta.appendChild(backFace);
@@ -309,8 +310,10 @@ function verificarPareja() {
     carta1.querySelector(".front").textContent = "";
     carta2.querySelector(".front").textContent = "";
 
-    carta1.querySelector(".back").textContent = "❔";
-    carta2.querySelector(".back").textContent = "❔";
+    carta1.querySelector(".back").innerHTML =
+    '<ion-icon name="help-outline" class="iconoInterrogante"></ion-icon>';
+    carta2.querySelector(".back").innerHTML =
+    '<ion-icon name="help-outline" class="iconoInterrogante"></ion-icon>';
 
     carta1.classList.remove("flipped");
     carta2.classList.remove("flipped");
