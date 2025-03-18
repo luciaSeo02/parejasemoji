@@ -1,125 +1,254 @@
 /*ajustes para pantallas muy grandes*/
 @media (min-width: 3000px) {
-    h1 {
-        font-size: 4rem;
-    }
+  h1 {
+    font-size: 4rem;
+  }
 
-    .ranking {
-        width: 80%;
-        max-width: 600px;
-    }
+  .ranking {
+    width: 80%;
+    max-width: 600px;
+  }
 
-    .container {
-        max-width: 1500px;
-        width: 100%;
-        margin: 0 auto;
-    }
+  .container {
+    max-width: 80vw;
+    width: 100%;
+    margin: 0 auto;
+  }
 
-    .contenedorJuego {
-        max-width: 1200px;
-    }
-    .pantalla-inicio {
-        width: 60%;
-    }
+  .contenedorJuego {
+    max-width: 1200px;
+  }
+  .pantalla-inicio {
+    width: 60%;
+  }
 }
 
 @media (max-width: 1000px) {
-    h1 {
-        font-size: 1.8rem;
-        margin-top: 20px;
-    }
+  h1 {
+    font-size: 2.5rem;
+  }
 
-    h2 {
-        font-size: 1.4rem;
-    }
+  #menuModos {
+    display: flex;
+    flex-direction: column;
+  }
 
-    #menuModos {
-        display: flex;
-        flex-direction: column;
-    }
+  .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-    .container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+  .contenedorJuego {
+    gap: 5px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden;
+  }
 
-    .contenedorJuego {
-        gap: 5px;
-        max-width: 90vw;
-        max-height: 90vh;
-        overflow: hidden;
-    }
+  .carta {
+    width: 100%;
+    height: 100%;
+  }
 
-    .carta {
-        width: 100%;
-        height: 100%;
-    }
+  .info {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+  }
 
-    .carta .back {
-        font-size: 2.5rem;
-    }
+  .info p {
+    font-size: 0.7rem;
+    padding: 12px;
+    min-width: 80px;
+  }
 
-    .info {
-        flex-direction: row;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        height: 60px;
-    }
+  button {
+    font-size: 1rem;
+    padding: 15px;
+    min-width: 80px;
+  }
 
-    .info p {
-        font-size: 0.7rem;
-        padding: 12px;
-        min-width: 80px;
-    }
+  .ranking {
+    width: 100%;
+    text-align: center;
+  }
 
-    button {
-        font-size: 1rem;
-        padding: 15px;
-        min-width: 80px;
-    }
+  .ranking h2 {
+    margin-bottom: 10px;
+  }
 
-    .ranking {
-        width: 100%;
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .ranking h2 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-
-    .ranking h3 {
-        font-size: 1rem;
-        margin-bottom: 10px;
-    }
+  .ranking h3 {
+    margin-bottom: 10px;
+  }
 }
 
 @media (max-width: 600px) {
-    h1 {
-        font-size: 1.5rem;
-    }
+  h1 {
+    font-size: 1.5rem;
+  }
 
-    .pantalla-inicio {
-        width: 85%;
-    }
+  .pantalla-inicio {
+    width: 85%;
+  }
 
-    .info {
-        flex-direction: row;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-    }
+  .container {
+    gap: 0;
+    padding: 0 auto;
+  }
 
-    .info p {
-        font-size: 0.6rem;
-        padding: 10px;
-    }
+  .contenedorJuego {
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 5px;
+  }
 
-    button {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
+  .carta.size-small {
+    font-size: 1.2rem;
+  }
+
+  .carta.size-medium {
+    font-size: 1.6rem;
+  }
+
+  .carta.size-large {
+    font-size: 2rem;
+  }
+
+  .carta.size-small .back {
+    font-size: 1.8rem;
+  }
+
+  .carta.size-medium .back {
+    font-size: 2.2rem;
+  }
+
+  .carta.size-large .back {
+    font-size: 3rem;
+  }
+
+  .info {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .info p {
+    font-size: 0.7rem;
+    padding: 5px;
+    margin: 0;
+    min-width: auto;
+  }
+
+  #resetRanking {
+    font-size: 0.8rem;
+    padding: 5px;
+    min-width: auto;
+    height: 35px;
+    line-height: 1;
+  }
+
+  #botonReiniciar,
+  #botonAtras {
+    width: 50px;
+    min-width: auto;
+    height: 25px;
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+
+  .ranking {
+    width: 90%;
+    padding: 5px;
+  }
+
+  .ranking h2 {
+    font-size: 1rem;
+  }
+
+  .ranking h3 {
+    display: none;
+  }
+
+  .ranking ul {
+    padding: 0;
+    font-size: 0.8rem;
+  }
+
+  .ranking li {
+    padding: 5px;
+    margin: 3px 0;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #resetRanking {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    min-width: auto;
+    height: 30px;
+    line-height: 1;
+  }
+
+  .switch {
+    width: 50px;
+    height: 20px;
+  }
+
+  .switch label {
+    width: 50px;
+    height: 20px;
+  }
+
+  .switch label::after {
+    width: 16px;
+    height: 16px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .switch input:checked + label::after {
+    left: 48px;
+    transform: translateX(-100%);
+  }
+
+  .switch label span {
+    font-size: 12px;
+    top: 3px;
+  }
+
+  .switch label .sun {
+    left: 4px;
+  }
+
+  .switch label .moon {
+    right: 4px;
+  }
+  #warningMessage {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  #warningMessage h4 {
+    font-size: 0.8rem !important;
+    margin-bottom: 0 !important;
+    margin-top: 10px;
+  }
+
+  #warningMessage p {
+    font-size: 0.6rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  #warningMessage button {
+    font-size: 0.8rem;
+    padding: 0 !important;
+    margin: 10px auto !important;
+  }
 }
