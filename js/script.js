@@ -244,7 +244,7 @@ function flipCard(carta) {
 
   cartasGiradas.push(carta);
   if (cartasGiradas.length === 2) {
-    setTimeout(verificarPareja, 1000); //al segundo comprueba si es pareja para girarla o dejarla así
+    setTimeout(verificarPareja, 800); //a menos de un segundo (porque se hacía largo) comprueba si es pareja para girarla o dejarla así
   }
 }
 
@@ -305,15 +305,15 @@ function verificarPareja() {
     setTimeout(() => {
       carta1.classList.remove("fallo");
       carta2.classList.remove("fallo");
-    }, 1000);
+    }, 500);
 
     carta1.querySelector(".front").textContent = "";
     carta2.querySelector(".front").textContent = "";
 
     carta1.querySelector(".back").innerHTML =
-    '<ion-icon name="help-outline" class="iconoInterrogante"></ion-icon>';
+      '<ion-icon name="help-outline" class="iconoInterrogante"></ion-icon>';
     carta2.querySelector(".back").innerHTML =
-    '<ion-icon name="help-outline" class="iconoInterrogante"></ion-icon>';
+      '<ion-icon name="help-outline" class="iconoInterrogante"></ion-icon>';
 
     carta1.classList.remove("flipped");
     carta2.classList.remove("flipped");
@@ -534,16 +534,25 @@ function iniciarTemporizador() {
     tiempoDisplay.textContent = tiempoRestante;
     if (tiempoRestante <= 0) {
       clearInterval(temporizador);
-      mensajeGanador.textContent = `¡${nombreJugador}, se acabó el tiempo! Has perdido.`;
-      sonidoPerder.play();
-      mensajeGanador.classList.add("perdedor");
-      mensajeGanador.classList.remove("ganador");
-      mensajeGanador.style.display = "block";
-      tablero.classList.add("noClick");
-      // Añadi temporizador para ocultar el mensaje después de 5 segundos
       setTimeout(() => {
-        mensajeGanador.style.display = "none";
-      }, 5000);
+        // Verificar si todas las cartas están emparejadas antes de declarar la derrota
+        if (
+          document.querySelectorAll(".carta.pareja").length === cartas.length
+        ) {
+          return;
+        }
+
+        mensajeGanador.textContent = `¡${nombreJugador}, se acabó el tiempo! Has perdido.`;
+        sonidoPerder.play();
+        mensajeGanador.classList.add("perdedor");
+        mensajeGanador.classList.remove("ganador");
+        mensajeGanador.style.display = "block";
+        tablero.classList.add("noClick");
+        // Añadi temporizador para ocultar el mensaje después de 5 segundos
+        setTimeout(() => {
+          mensajeGanador.style.display = "none";
+        }, 5000);
+      }, 1000);
     }
   }, 1000);
 }

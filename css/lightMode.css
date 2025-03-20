@@ -102,6 +102,10 @@ body.lightMode .pantalla-inicio input:focus {
   background: #fcfcfc;
 }
 
+body.lightMode .pantalla-inicio input:not(:focus):valid {
+  background-color: #fcfcfc;
+}
+
 body.lightMode .pantalla-inicio {
   background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
   animation: fondoAnimado 10s infinite alternate ease-in-out;
@@ -128,7 +132,7 @@ body.lightMode .carta {
 }
 
 body.lightMode .carta .front {
-  background: linear-gradient(135deg,#5db0f5, #b0c4de);
+  background: linear-gradient(135deg, #5db0f5, #b0c4de);
 }
 
 body.lightMode .carta .back {
